@@ -1,0 +1,72 @@
+package com.nhaowan.mobile.utils;
+
+public class Contants {
+	public static final String app_id = "10001";
+	public static final String app_key = "89765f16cc764bcd8c5ef39337d7c250";
+
+	public static final String UPDATE_INIT_FILE = "UPDATE_INIT_FILE";
+	public static final String UPDATE_INIT_FILE_KEY = "UPDATE_INIT_FILE_KEY";
+	public static final String UPDATE_INIT_CATEGORY_KEY = "UPDATE_INIT_CATEGORY_KEY";
+	public static final String UPDATE_INIT_CATEGORY_GAME_KEY = "UPDATE_INIT_CATEGORY_GAME_KEY";
+	public static final String SHARE_PRE_AUTO = "AuTo";
+	public static final String UPDATE_INIT_USER_TOKEN = "UPDATE_INIT_USER_TOKEN";
+
+	public static final boolean DEBUG = true;
+	public static final boolean LIFECYCLE = false;
+	public static final int DATABASE_VERSION = 1;
+	public static final String DATABASE_NAME = "Mobile";
+	public static final String SHARED = "Mobile";
+	public static final String TAG = "Mobile_";
+	public static final String APP_DIR = "/Mobile";
+	public static final String APP_TEMP = APP_DIR + "/temp";
+	public static final String APP_IMAGE = APP_DIR + "/image";
+	public static final String APP_DB = "Mobile.db";
+	public static final String SCAN_KEY = "7c15b69a-eb41-468c-91dd-5ffad1e7726e";
+
+	public final static String PATH_SDCARD_ROOT = android.os.Environment.getExternalStorageDirectory()
+			+ "/nhaowan/";
+	public final static String PATH_SDCARD_FILES = PATH_SDCARD_ROOT + "files/";
+	public final static String PATH_SDCARD_IMAGES = PATH_SDCARD_ROOT + "images/";
+
+	public final static String SERVICE_ROOT = "http://www.nhaowan.com/app/";
+	public final static String SERVICE_POST_MOBILE = "http://www.nhaowan.com/users/post_apps";
+
+	public final static String SERVICE_TOP = SERVICE_ROOT + "top";
+	/** 分类列表 */
+	public final static String SERVICE_CATLIST = SERVICE_ROOT + "catlist";
+	public final static String SERVICE_HITS = SERVICE_ROOT + "hits";
+
+	/** 序列化文件 */
+	public static final String SERIAL_CATEGORY_FILE = PATH_SDCARD_FILES + "cate.iw";
+	public static final String SERIAL_TOP_FILE = PATH_SDCARD_FILES + "top.iw";
+	public static final String SERIAL_USER_FILE = PATH_SDCARD_FILES + "user.iw";
+	public static final String SERIAL_CONTENT_FILE = PATH_SDCARD_FILES + "artic.iw"/**
+	 * 
+	 * + _id
+	 */
+	;
+	public static final String SERIAL_VIDEO_FILE = PATH_SDCARD_FILES + "video.iw"/**
+	 * 
+	 * + _id
+	 */
+	;
+	public static final String SERIAL_COMMENT_TOP_FILE = PATH_SDCARD_FILES + "commontop.iw";
+	public static final String SERIAL_CAT_MAP = PATH_SDCARD_FILES + "cat.iw";
+	public static final String SERIAL_HITS = PATH_SDCARD_FILES + "iw.hits";
+
+	// public static String LANG_TYPE_VIDEO = "v_show";
+	// public static String LANG_TYPE_DETAIL = "detail";
+
+	public static final String TYPE_FRAGMENT_HAS_TOP = "HAS_TOP";
+	public static final String TYPE_FRAGMENT_WHICH = "FRAGMENT";
+	public static final String REFRESH_INDEX_KEY = "REFRESH_INDEX";
+
+	public static final String TYPE_FRAGMENT_STYLE = "STYLE";
+	public static final int REFRESH_INDEX_VALUE = 0;
+	public static final int SCALE_SIZE = 2;
+
+	public static String makeLogTag(Class cls) {
+		String tag = TAG + cls.getSimpleName();
+		return (tag.length() > 50) ? tag.substring(0, 50) : tag;
+	}
+}

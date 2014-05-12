@@ -1,0 +1,104 @@
+package com.nhaowan.mobile.utils;
+
+import java.util.HashMap;
+
+import org.json.JSONObject;
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.text.TextUtils;
+
+import com.haha.frame.net.NetManager;
+import com.haha.frame.utils.JsonUtils;
+import com.haha.frame.widget.CustomProgressDialog;
+
+public class DataFetcher {
+	public interface IDataFetcherListener<T>{
+		public void onFetcherDone(T t);
+	}
+	
+	private Context mContext;
+	private CustomProgressDialog progressBar;
+	public DataFetcher(Context mContext) {
+		this.mContext = mContext;
+		
+		progressBar = CustomProgressDialog.createDialog(mContext);
+	}
+	 
+	AsyncTask<Void, Void, ?> fetchDataTask = null;
+	
+	public  void cancel(){
+		if(fetchDataTask!=null){
+			fetchDataTask.cancel(true);
+			fetchDataTask = null;
+		}
+	}
+	
+	class DataResult{
+		public int code;
+		public String message;
+	}
+	public  <T>void fetchByPost(final Context mContext,
+			final  String url, 
+			final HashMap<String, String> params,
+			final boolean  isLoadingShow,
+			final Class<?> clasz, final IDataFetcherListener<T> listener) {
+		fetchDataTask = new AsyncTask<Void, Void, T>(){
+			@Override
+			protected void onPreExecute() {
+				super.onPreExecute();
+				if(isLoadingShow){
+					progressBar.show();
+				}
+			}
+			
+			@Override
+			protected T doInBackground(Void... s) {
+				String result = "";
+				try {
+					result = NetManager.doPost(mContext, url, params);
+					if(!TextUtils.isEmpty(result)){
+						JSONObject jsonResult = new JSONObject(result);
+						return (T) JsonUtils.parserToObject(clasz, result);
+						
+//						int code = jsonResult.getInt("ret");
+//						String message = jsonResult.getString("msg");
+//						dr.code = code;
+//						dr.message = message;
+					}  else {
+//						dr.code = -100;
+//						dr.message = "没有返回数据";
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+					
+				}  
+				return null;
+			}
+			
+			@Override
+			protected void onPostExecute(T result) {
+				super.onPostExecute(result);
+				/*if(result.code == 0){
+					if(listener!=null){
+						listener.onSuccess(result.code, result.message);
+					}
+				} else {
+					if(listener!=null){
+						listener.onFailed(k, "数据解析异常");
+					}
+				}*/
+				if(listener!=null){
+					listener.onFetcherDone(result);
+				}
+				if(isLoadingShow && progressBar.isShowing()){
+					progressBar.dismiss();
+				}
+			}
+		};
+		fetchDataTask.execute();
+		
+	}
+
+}

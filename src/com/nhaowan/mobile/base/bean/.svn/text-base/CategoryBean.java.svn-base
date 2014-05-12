@@ -1,0 +1,127 @@
+package com.nhaowan.mobile.activity.bean;
+
+import java.io.Serializable;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class CategoryBean implements Parcelable, Serializable {
+ 	private static final long serialVersionUID = 1L;
+ 	public final static String CAT_WEBVIEW ="404";
+ 	private int catid;
+	private String catname;
+	private String type;
+	//404 网页catid
+	private String style = "0";
+	//当 404时 是网页信息，就会有url值 
+	private String url ="http://www.nhaowan.com";
+	
+	public CategoryBean() {
+	}
+
+	public CategoryBean(int catid, String catname, String type, String style) {
+		super();
+		this.catid = catid;
+		this.catname = catname;
+		this.type = type;
+		this.style = style;
+	}
+
+
+
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(catid);
+		dest.writeString(catname);
+		dest.writeString(type);
+		dest.writeString(style);
+	}
+
+	 
+	public static final Parcelable.Creator<CategoryBean> CREATOR = new Parcelable.Creator<CategoryBean>() {
+
+		@Override
+		public CategoryBean createFromParcel(Parcel source) {
+			CategoryBean p = new CategoryBean();
+			p.catid = source.readInt();
+			p.catname = source.readString();
+			p.type = source.readString();
+			p.style = source.readString();
+			return p;
+		}
+
+		@Override
+		public CategoryBean[] newArray(int size) {
+			return new CategoryBean[size];
+		}
+	};
+
+	public int getCatid() {
+		return catid;
+	}
+
+
+
+
+	public void setCatid(int catid) {
+		this.catid = catid;
+	}
+
+
+
+
+	public String getCatname() {
+		return catname;
+	}
+
+
+
+
+	public void setCatname(String catname) {
+		this.catname = catname;
+	}
+
+
+
+
+	public String getType() {
+		return type;
+	}
+
+
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+
+
+	public void setStyle(String style) {
+		this.style = style;
+	}
+
+
+
+
+	public String getStyle() {
+		return style;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+	
+}

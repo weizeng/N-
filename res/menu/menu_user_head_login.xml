@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    <item
+        android:id="@+id/menu_head_item_sina"
+        android:orderInCategory="1"
+        android:title="新浪微博授权"
+        android:visible="true"
+        app:showAsAction="never"/>
+        <item
+        android:id="@+id/menu_head_item_tenc"
+        android:orderInCategory="2"
+        android:title="腾讯微博授权"
+        android:visible="true"
+        app:showAsAction="never"/>
+            <item
+        android:id="@+id/menu_head_item_n"
+        android:orderInCategory="3"
+        android:title="N+ 登录"
+        android:visible="true"
+        app:showAsAction="never"/>
+   
+   
+</menu>

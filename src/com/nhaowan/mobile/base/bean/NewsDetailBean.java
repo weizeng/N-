@@ -1,0 +1,104 @@
+package com.nhaowan.mobile.base.bean;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class NewsDetailBean implements Parcelable {
+
+	private int id;
+	private String title;
+	private String createTime;
+	private String thumb;
+	private String url ;
+	private String content;
+	
+	
+	public NewsDetailBean() {
+		// TODO Auto-generated constructor stub
+	}
+	/**
+	 * @param id
+	 * @param title
+	 * @param createTime
+	 * @param thumb
+	 * @param needDownloadUrl
+	 */
+	public NewsDetailBean(int id, String title, String thumb,String createTime 
+			) {
+		this.id = id;
+		this.title = title;
+		this.createTime = createTime;
+		this.thumb = thumb;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+	public String getThumb() {
+		return thumb;
+	}
+	public void setThumb(String thumb) {
+		this.thumb = thumb;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(id);
+		dest.writeString(title);
+		dest.writeString(createTime);
+		dest.writeString(thumb);
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public String getUrl() {
+		return url;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getContent() {
+		return content;
+	}
+
+	public static final Parcelable.Creator<NewsDetailBean> CREATOR = new Parcelable.Creator<NewsDetailBean>() {
+
+		@Override
+		public NewsDetailBean createFromParcel(Parcel source) {
+			NewsDetailBean p = new NewsDetailBean();
+			p.id = source.readInt();
+			p.title = source.readString();
+			p.createTime = source.readString();
+			p.thumb = source.readString();
+			return p;
+		}
+
+		@Override
+		public NewsDetailBean[] newArray(int size) {
+			return new NewsDetailBean[size];
+		}
+	};
+	
+
+}

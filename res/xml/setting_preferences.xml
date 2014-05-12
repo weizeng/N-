@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <com.nhaowan.mobile.ui.preference.UserPreference />
+
+    <PreferenceCategory android:title="基本操作" >
+        <Preference
+            android:key="setting_key_clean_preference"
+            android:summary="缓存中保存了您浏览的图片，清理不会删除您保存的图片"
+            android:title="清理缓存" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="其他选项" >
+        <PreferenceScreen
+            android:summary="把您发现的问题以及意见告诉我们"
+            android:title="反馈" >
+            <com.nhaowan.mobile.ui.preference.FeedbackPreference />
+        </PreferenceScreen>
+
+        <Preference
+            android:key="setting_key_version_preference"
+            android:summary="2.0"
+            android:title="系统版本" />
+
+        <PreferenceScreen
+            android:summary="现在正在做的事"
+            android:title="关于我们" >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.nhaowan.com" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+</PreferenceScreen>

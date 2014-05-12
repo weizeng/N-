@@ -1,0 +1,63 @@
+package com.nhaowan.mobile.utils;
+
+import java.util.HashMap;
+
+import android.content.Context;
+import android.text.TextUtils;
+
+import com.haha.frame.net.AsyncHttpClient;
+import com.haha.frame.net.AsyncHttpResponseHandler;
+import com.haha.frame.net.RequestParams;
+import com.haha.frame.utils.OpensnsException;
+import com.haha.frame.utils.SnsSigCheck;
+import com.nhaowan.mobile.activity.bean.User;
+
+public class IWAsyncHttpClient extends AsyncHttpClient{
+	public IWAsyncHttpClient() {
+		setTimeout(20 * 1000);
+	}
+	
+	public void get(String urlPath, HashMap<String, String> params, String url,IWAsyncHttpResponseHandler responseHandler){
+		if(!TextUtils.isEmpty(User.getInstance().getToken())){
+			params.put("token", User.getInstance().getToken());
+		}
+		params.put("ts", System.currentTimeMillis()/1000l+"");
+		String sig = null;
+		try {
+			//统一调试称post 以后在根据情况改
+			sig = SnsSigCheck.makeSig("post", urlPath, params, Contants.app_key+"&");
+		} catch (OpensnsException e) {
+			e.printStackTrace();
+		}
+		params.put("sig", sig);
+		
+		RequestParams requestParams = new RequestParams(params);
+		get(url, requestParams, responseHandler);
+		
+	}
+	
+	public void post(String urlPath, HashMap<String, String> params, String url,IWAsyncHttpResponseHandler responseHandler){
+		if(!TextUtils.isEmpty(User.getInstance().getToken())){
+			params.put("token", User.getInstance().getToken());
+		}
+		params.put("ts", System.currentTimeMillis()/1000l+"");
+		String sig = null;
+		try {
+			sig = SnsSigCheck.makeSig("post", urlPath, params, Contants.app_key+"&");
+		} catch (OpensnsException e) {
+			e.printStackTrace();
+		}
+		params.put("sig", sig);
+		
+		RequestParams requestParams = new RequestParams(params);
+		post(url, requestParams, responseHandler);
+	}
+	
+	
+	@Override
+	public void get(Context context, String url,
+			AsyncHttpResponseHandler responseHandler) {
+		// TODO Auto-generated method stub
+		super.get(context, url, responseHandler);
+	}
+}

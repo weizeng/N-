@@ -1,0 +1,71 @@
+package com.nhaowan.mobile.utils;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
+
+import com.haha.frame.net.AsyncHttpResponseHandler;
+import com.haha.frame.utils.JsonUtils;
+import com.vita.player.log.Log;
+
+public class IWAsyncHttpResponseHandler<T> extends AsyncHttpResponseHandler {
+	private final String TAG = "IWAsyncHttpResponseHandler";
+	IAsyncHttpListener listener = null;
+	public interface IAsyncHttpListener<T>{
+		public void onSuccess(T t);
+		public void onFailure(String content);
+		public void onStart();
+		public void onFinish();
+	}
+	
+	Class<?> clazz = null;
+	public IWAsyncHttpResponseHandler(Class<?> clazz,IAsyncHttpListener listener) {
+		this.clazz = clazz;
+		this.listener = listener;
+	}
+	
+	@Override
+	public void onFailure(Throwable error, String content) {
+		super.onFailure(error, content);
+		if(listener != null){
+			listener.onFailure(content);
+		}
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		if(listener != null){
+			listener.onStart();
+		}
+	}
+	
+	@Override
+	public void onFinish() {
+		super.onFinish();
+		if(listener != null){
+			listener.onFinish();
+		}
+	}
+	 
+	@Override
+	public void onSuccess(int statusCode, Header[] headers, String content) {
+		super.onSuccess(statusCode, headers, content);
+		Log.d(TAG, content);
+		T t = null;
+		try {
+			JSONObject jsonResult = new JSONObject(content);
+			 t = (T) JsonUtils.parserToObjectByAnnotation(this.clazz, content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(listener != null){
+			listener.onSuccess(t);
+		}
+	}
+	
+	@Override
+	public void onSuccess(String content) {
+		super.onSuccess(content);
+		Log.d(TAG, content);
+	}
+}

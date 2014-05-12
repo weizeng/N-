@@ -1,0 +1,56 @@
+package com.nhaowan.mobile.response;
+
+import java.util.ArrayList;
+
+import com.haha.frame.utils.Element;
+import com.haha.frame.utils.ElementList;
+import com.haha.frame.widget.ListResult;
+import com.nhaowan.mobile.activity.bean.MyCommentBean;
+import com.nhaowan.mobile.activity.bean.NewsBean;
+
+public class CommonListResponse extends ListResult {
+	@Element(value = "ret")
+	private int ret;
+
+	@Element(value = "page_count")
+	private int pageCount;
+
+	@Element(value = "msg")
+	private String msg;
+
+	@ElementList(value = "list")
+	private ArrayList<NewsBean> list = new ArrayList<NewsBean>();
+
+	public int getRet() {
+		return ret;
+	}
+
+	public void setRet(int ret) {
+		this.ret = ret;
+	}
+
+	public int getPageCount() {
+		return pageCount;
+	}
+
+	public void setPageCount(int pageCount) {
+		this.pageCount = pageCount;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public ArrayList<NewsBean> getList() {
+		return list;
+	}
+
+	public void setList(ArrayList<NewsBean> list) {
+		this.list = list;
+	}
+
+}

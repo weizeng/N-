@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="8dp" >
+    <TextView
+        android:id="@+id/common_list_item_category_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/abc_ab_transparent_dark_holo"
+        android:text="推荐"
+        android:gravity="bottom"
+        android:textColor="#58585B"
+        android:textSize="12sp"/>
+    
+    <TextView
+        android:layout_alignParentLeft="true"
+        android:id="@+id/common_list_item_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/common_list_item_image"
+        android:layout_toLeftOf="@+id/common_list_item_category_tv"
+        android:text="title"
+        android:textColor="#58585B"
+        android:textSize="18sp"
+        android:textStyle="bold" 
+        android:paddingLeft="3dp"/>
+
+    <TextView
+        android:paddingLeft="3dp"
+        android:id="@+id/common_list_item_text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/common_list_item_text1"
+        android:layout_below="@+id/common_list_item_subtitle"
+        android:text="description"
+        android:textColor="#58585B"
+        android:layout_marginTop="6dp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:paddingLeft="3dp"
+        android:id="@+id/common_list_item_text3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/common_list_item_text2"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/common_list_item_text2"
+        android:layout_marginTop="4dp"
+        android:gravity="right"
+        android:singleLine="true"
+        android:text="time"
+        android:textColor="#58585B"
+        android:textSize="13sp" />
+    <TextView
+        android:id="@+id/common_list_item_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/common_list_item_text1"
+        android:text="subtitle"
+        android:textColor="#565656"
+        android:textSize="12sp" 
+        android:visibility="gone"/>
+</RelativeLayout>

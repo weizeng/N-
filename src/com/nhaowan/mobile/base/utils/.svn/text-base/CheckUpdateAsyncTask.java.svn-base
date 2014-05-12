@@ -1,0 +1,83 @@
+package com.nhaowan.mobile.utils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.jar.Pack200.Packer;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.text.TextUtils;
+
+import com.haha.frame.core.AsyncTask;
+import com.haha.frame.net.NetManager;
+import com.haha.frame.utils.DeviceUtils;
+import com.haha.frame.utils.JsonUtils;
+import com.haha.frame.utils.Log;
+import com.nhaowan.mobile.activity.bean.UpdateLog;
+
+public abstract class CheckUpdateAsyncTask extends AsyncTask<Void, Integer, UpdateLog>{
+	UpdateLog ul  = null;
+	Context mContext;
+	private int versionCode ;
+	public CheckUpdateAsyncTask(Context mContext) {
+		this.mContext = mContext;
+	}
+
+	@Override
+	protected void onPreExecute() {
+		// TODO Auto-generated method stub
+		super.onPreExecute();
+		PackageInfo pi = DeviceUtils.getCurrentPacketInfo(mContext);
+		if(pi!=null){
+			versionCode = pi.versionCode;
+		}
+	}
+
+	@Override
+	protected UpdateLog doInBackground(Void... params) {
+		if(mContext==null || versionCode == 0){
+			return ul;
+		}
+		String retRes;
+		
+		try {
+			retRes = NetManager.doHttpGet(mContext, Contants.SERVICE_ROOT+"app_update?version="+versionCode);
+			if(!TextUtils.isEmpty(retRes)){
+				Log.d("CHECKUPDATE", Contants.SERVICE_ROOT+"app_update?version="+versionCode +"category"+">>>>"+retRes);
+				JSONObject jsonObject = new JSONObject(retRes);
+				if(0 == jsonObject.getInt("ret")){
+					ul = new UpdateLog(
+							JsonUtils.getStringValue(jsonObject, "appurl"),
+							JsonUtils.getStringValue(jsonObject, "version"),
+							JsonUtils.getStringValue(jsonObject, "changelog"),
+							JsonUtils.getIntValue(jsonObject, "enforce"));
+					//					return ul;
+				}
+			}
+
+			retRes = NetManager.doHttpGet(mContext, Contants.SERVICE_ROOT+"home?type=screen");
+			Log.d("CHECKUPDATE", Contants.SERVICE_ROOT+"home?type=screen"+">>>>"+retRes);
+			if(!TextUtils.isEmpty(retRes)){
+				JSONObject jsonObject = new JSONObject(retRes);
+				if(0 == jsonObject.getInt("ret")){
+					if(ul==null){
+						ul = new UpdateLog();
+					}
+					ul.setPicUrl(JsonUtils.getStringValue(jsonObject, "pic_url"));
+					ul.setLinkUrl(JsonUtils.getStringValue(jsonObject, "link_url"));
+					ul.setOther(JsonUtils.getStringValue(jsonObject, "other"));
+					ul.setForceUpdatePoster(JsonUtils.getInt(jsonObject, "force",0));
+				}
+			}
+			return ul;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return ul;
+	}
+}

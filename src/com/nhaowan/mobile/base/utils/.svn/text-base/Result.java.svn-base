@@ -1,0 +1,53 @@
+package com.nhaowan.mobile.utils;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
+import android.text.TextUtils;
+
+import com.haha.frame.utils.JsonUtils;
+
+public class Result {
+	private int id;
+	private String msg;
+	private boolean isSuccess;
+	public Result() {
+		// TODO Auto-generated constructor stub
+	}
+	/**
+	 * @param id
+	 * @param msg
+	 * @param isSuccess
+	 */
+	public Result(int id, String msg, boolean isSuccess) {
+		super();
+		this.id = id;
+		
+		try {
+			this.msg = URLDecoder.decode(msg, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		this.isSuccess = isSuccess;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getMsg() {
+		return !TextUtils.isEmpty(msg)?msg:(isSuccess?"成功啦":"革命尚未成功，同志还需努力");
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+	public boolean isSuccess() {
+		return isSuccess;
+	}
+	public void setSuccess(boolean isSuccess) {
+		this.isSuccess = isSuccess;
+	}
+	
+	
+}

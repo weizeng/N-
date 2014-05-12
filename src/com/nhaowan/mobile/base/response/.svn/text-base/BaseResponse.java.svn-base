@@ -1,0 +1,5 @@
+package com.nhaowan.mobile.response;
+
+public class BaseResponse {
+	
+}

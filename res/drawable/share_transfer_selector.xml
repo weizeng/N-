@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+          android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+
+    <item android:state_activated="true" android:drawable="@drawable/ic_reshare_darkgrey_20"/>
+    <item android:state_pressed="true" android:drawable="@drawable/ic_reshare_grey_20"/>
+    <item android:drawable="@drawable/ic_reshare_darkgrey_20"/>
+</selector>

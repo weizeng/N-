@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    
+    android:id="@+id/head_view"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:orientation="vertical" >
+
+    <com.haha.frame.widget.AutoGallery
+        android:id="@+id/homepage_image_gallery"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        
+        android:soundEffectsEnabled="false"
+        android:background="@drawable/head_image_default" />
+
+    <com.haha.frame.widget.FlowIndicator
+        android:id="@+id/homepage_circle_indicator"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/homepage_image_gallery"
+        android:layout_marginBottom="3.5dp"
+       >
+    </com.haha.frame.widget.FlowIndicator>
+ <!-- app:radius="5dp"
+        app:space="2dp"  -->
+</RelativeLayout>
