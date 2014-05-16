@@ -71,14 +71,15 @@ public class GameNewsLoadMoreListView<T extends ListResult> extends StickHeaderL
 				int itemsLastIndex = currentDataSize - 1;
 				// 增加Footer 和 header 最后一项索引 计数从0开始
 				int lastIndex = itemsLastIndex + getHeaderViewsCount() + 1;
-//				Log.d("listview", "lastVisibleIndex:"+lastVisibleIndex+",lastIndex:"+lastIndex);
+				// Log.d("listview",
+				// "lastVisibleIndex:"+lastVisibleIndex+",lastIndex:"+lastIndex);
 				if (scrollState == OnScrollListener.SCROLL_STATE_IDLE && lastVisibleIndex == lastIndex) {
 					// 加载更多
 					if (mListener != null) {
 						synchronized (object) {
 							if (loadMoreView != null && loadMoreView.getVisibility() == View.GONE) {
 								loadMoreView.setVisibility(View.VISIBLE);
-							}
+ 							}
 							loadMoreView.setLoadMoreStatus();
 							onRefresh(false);
 						}
@@ -143,8 +144,22 @@ public class GameNewsLoadMoreListView<T extends ListResult> extends StickHeaderL
 	/** 手动加载footer */
 	private void addCusFooterView(View view) {
 		if (getFooterViewsCount() == 0) {
-			this.addFooterView(view);
+			view.setVisibility(View.VISIBLE);
+//			this.addFooterView(view);
+			addFooterView(view);
 		}
+	}
+
+	public void addCusFooterView() {
+		addCusFooterView(loadMoreView.getView());
+	}
+	
+	public void setCurrentDataSize(int currentDataSize) {
+		this.currentDataSize = currentDataSize;
+	}
+	
+	public int getCurrentDataSize() {
+		return currentDataSize;
 	}
 
 	/** 手动移除footer */
@@ -162,7 +177,9 @@ public class GameNewsLoadMoreListView<T extends ListResult> extends StickHeaderL
 			return;
 		}
 
-		cancel();
+//		if (!topRefresh) {
+//			addCusFooterView(loadMoreView.getView());
+//		}
 		AsyncHttpManager.getInstance().get(mContext, params.urlPath, params.submitMap, params.url,
 				new AsyncHttpResponseHandler() {
 					@Override
@@ -178,7 +195,9 @@ public class GameNewsLoadMoreListView<T extends ListResult> extends StickHeaderL
 					@SuppressWarnings("unchecked")
 					@Override
 					public void onSuccess(int statusCode, String retRes) {
-						super.onSuccess(statusCode, retRes);
+//						if(!topRefresh) {
+//							removeFooterView();
+//						}
 						if (topRefresh) {
 							currentPage = 1;
 						}
@@ -187,7 +206,6 @@ public class GameNewsLoadMoreListView<T extends ListResult> extends StickHeaderL
 						T t = null;
 						try {
 							if (params != null && params.response != null) {
-
 								// by leo 4.21
 								t = (T) JsonUtils.parserToObjectByAnnotation(params.response, retRes);
 
@@ -221,6 +239,7 @@ public class GameNewsLoadMoreListView<T extends ListResult> extends StickHeaderL
 							} else {
 								loadMoreView.setViewTag(0);
 								removeFooterView();
+								mListener.onEnd();
 							}
 						}
 						if (currentPage <= totalPage) {
@@ -241,14 +260,16 @@ public class GameNewsLoadMoreListView<T extends ListResult> extends StickHeaderL
 		public void onListScorllStateChanged(boolean isPull) {
 			// isPull true 上拉
 		}
-		
+
 		public abstract void onUpdateBitmap(int visibleItem);
 
 		public abstract void onSuccess(int statusCode, T retRes, String retStr, boolean topRefresh);// 返回size
 
 		public abstract RefreshParams<T> getRefreshUrl(int currentPage, boolean topRefresh);
+
+		public void onLoadDataFailed(boolean topRefresh) {};
 		
-		public void onLoadDataFailed(boolean topRefresh){};
+		public void onEnd() {};
 	}
 
 	public static class RefreshParams<T> {
@@ -257,5 +278,5 @@ public class GameNewsLoadMoreListView<T extends ListResult> extends StickHeaderL
 		public HashMap<String, String> submitMap = new HashMap<String, String>();;
 		public Class<T> response;
 	}
- 
+
 }

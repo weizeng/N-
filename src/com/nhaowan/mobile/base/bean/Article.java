@@ -3,45 +3,41 @@ package com.nhaowan.mobile.base.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import android.text.TextUtils;
+
+import com.haha.frame.utils.Element;
 import com.nhaowan.mobile.base.utils.ArticleBean;
+import com.nhaowan.mobile.base.utils.HtmlParseUtils;
 
 public class Article implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private String downUrl;
-	private ArrayList<ArticleBean> articleList = new ArrayList<ArticleBean>();
-	private String linkUrl;
-	private String fileName;
+	
+	@Element(value = "title")
+	private String title;
+
+	@Element(value = "url")
+	private String url;
+
+	@Element(value = "downurl")
+	private String downurl;
+
+	@Element(value = "version")
 	private String version;
+	
+	@Element(value = "videosource")
 	private ArrayList<String> videoSource = new ArrayList<String>();
-	/**
-	 * footer的类型 0：下载&& 网页链接 1： 推广 2： 投票 3： 相关文章
-	 */
-	private int footerStyle;
-
-	public String getDownUrl() {
-		return downUrl;
-	}
-
-	public void setDownUrl(String downUrl) {
-		this.downUrl = downUrl;
-	}
+	
+	@Element(value = "content")
+	private String content;
+	
+	//string转换为各个文章片段
+	private ArrayList<ArticleBean> articleList = new ArrayList<ArticleBean>();
+	
+	private String fileName;
+	
 
 	public ArrayList<ArticleBean> getArticleList() {
 		return articleList;
-	}
-
-	// public void setArticleList(ArrayList<ArticleFragment> articleList) {
-	// this.articleList = articleList;
-	// }
-	public String getLinkUrl() {
-		return linkUrl;
-	}
-
-	public void setLinkUrl(String linkUrl) {
-		this.linkUrl = linkUrl;
 	}
 
 	public String getFileName() {
@@ -68,11 +64,49 @@ public class Article implements Serializable {
 		this.version = version;
 	}
 
-	public int getFooterStyle() {
-		return footerStyle;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setFooterStyle(int footerStyle) {
-		this.footerStyle = footerStyle;
+	public void setTitle(String title) {
+		this.title = title;
 	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getDownurl() {
+		return downurl;
+	}
+
+	public void setDownurl(String downurl) {
+		this.downurl = downurl;
+	}
+
+	public void setArticleList(ArrayList<ArticleBean> articleList) {
+		this.articleList = articleList;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public boolean parseHtml() {
+		if(!TextUtils.isEmpty(content)) {
+			articleList.clear();
+			articleList.addAll(HtmlParseUtils.parseHtml(content, null));
+			return true;
+		}
+		return false;
+	}
+
 }

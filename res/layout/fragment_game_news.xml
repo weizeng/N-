@@ -12,6 +12,7 @@
         android:layout_height="match_parent" >
 
         <ScrollView
+            android:id="@+id/game_list_scorllview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true" >
@@ -20,7 +21,7 @@
                 android:id="@+id/carddemo_extra_sticky_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                card:list_card_layout_resourceID="@layout/carddemo_extras_list_card_thumbnail_layout" >
+                  >
             </com.nhaowan.mobile.base.view.GameNewsLoadMoreListView>
         </ScrollView>
     </uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout>

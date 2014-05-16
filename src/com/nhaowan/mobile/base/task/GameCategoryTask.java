@@ -42,8 +42,9 @@ public abstract class GameCategoryTask extends AbsProxyTask<ArrayList<GameCatego
 
 		String timeStr = SharedPreferencesUtil.getContactPreference(mContext, Contants.UPDATE_INIT_FILE, ""
 				+ Contants.UPDATE_INIT_CATEGORY_GAME_KEY);
-		if (gcb != null && !TextUtils.isEmpty(timeStr)
-				&& !DateUtil.isDataExperid(Long.parseLong(timeStr), (long) (60 * 3 * 1000), mContext)) {
+		if (!AsyncHttpManager.getInstance().checkConnection(mContext)
+				|| (gcb != null && !TextUtils.isEmpty(timeStr) && !DateUtil.isDataExperid(
+						Long.parseLong(timeStr), (long) (60 * 3 * 1000), mContext))) {
 			// ignore
 			onComplete(gcb);
 		} else {

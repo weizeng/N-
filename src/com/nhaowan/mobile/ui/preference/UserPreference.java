@@ -1,6 +1,5 @@
 package com.nhaowan.mobile.ui.preference;
 
-import it.gmariotti.cardslib.library.view.CardView;
 import android.content.Context;
 import android.preference.Preference;
 import android.util.AttributeSet;
@@ -9,8 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nhaowan.mobile.R;
-import com.nhaowan.mobile.base.cards.UserSectionCard;
-import com.nhaowan.mobile.base.cards.UserSectionCard.IUserLogin;
+import com.nhaowan.mobile.base.view.UserSectionView;
 
 public class UserPreference extends Preference {
 
@@ -39,16 +37,8 @@ public class UserPreference extends Preference {
 	@Override
 	protected void onBindView(View view) {
 		super.onBindView(view);
-		CardView cardView = (CardView) view.findViewById(R.id.user_heard_cardview);
-		UserSectionCard userSectionView = new UserSectionCard(context);
-		cardView.setCard(userSectionView);
-		userSectionView.setOnAuthinizeListener(new IUserLogin() {
-
-			@Override
-			public void onStartLogin(PLATFORM form) {
-
-			}
-		});
+		UserSectionView cardView = (UserSectionView) view.findViewById(R.id.user_heard_cardview);
+		 
 	}
 
 }

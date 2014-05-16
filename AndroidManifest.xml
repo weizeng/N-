@@ -3,7 +3,9 @@
     package="com.nhaowan.mobile"
     android:versionCode="102"
     android:versionName="1.2" >
-
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19"/>
     <application
         android:name="com.nhaowan.mobile.base.WanApplication"
         android:allowBackup="true"

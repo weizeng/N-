@@ -21,7 +21,7 @@ public class HtmlParseUtils {
 				ArticleBean article = new ArticleBean();
 				Element element = childElement.get(index);
 				if (element.hasText()) {
-					article.setContentFragment(element.html());
+					article.setText(element.html());
 				}
 
 				Elements imgElements = element.getElementsByTag("img");
@@ -36,7 +36,7 @@ public class HtmlParseUtils {
 				if ("h2".equals(element.tagName())) {
 					article.setTextStyle(ArticleBean.TEXT_STYLE_BOLD);
 				}
-				if (TextUtils.isEmpty(article.getUrl()) && TextUtils.isEmpty(article.getContentFragment())) {
+				if (TextUtils.isEmpty(article.getUrl()) && TextUtils.isEmpty(article.getText())) {
 					continue;
 				}
 				articles.add(article);
@@ -44,7 +44,7 @@ public class HtmlParseUtils {
 		} else {
 			if (articles.size() == 0 && !TextUtils.isEmpty(parseHtml)) {
 				ArticleBean article = new ArticleBean();
-				article.setContentFragment(parseHtml);
+				article.setText(parseHtml);
 				articles.add(article);
 			}
 		}

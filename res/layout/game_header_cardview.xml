@@ -7,7 +7,7 @@
     android:paddingBottom="5dp"
     android:paddingTop="3dp" >
 
-    <com.nhaowan.mobile.base.cards.GameSectionCardView
+    <com.nhaowan.mobile.base.cards.GameSectionView
         android:id="@+id/game_heard_cardview"
         android:layout_width="match_parent"
         android:layout_height="60dp"

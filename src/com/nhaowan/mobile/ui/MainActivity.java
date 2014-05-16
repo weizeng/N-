@@ -1,7 +1,5 @@
 package com.nhaowan.mobile.ui;
 
-import it.gmariotti.cardslib.library.view.CardView;
-
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -14,7 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,12 +21,12 @@ import android.widget.ListView;
 import com.nhaowan.mobile.R;
 import com.nhaowan.mobile.base.BaseFragment;
 import com.nhaowan.mobile.base.bean.InnerMenu;
-import com.nhaowan.mobile.base.cards.UserSectionCard;
-import com.nhaowan.mobile.base.cards.UserSectionCard.IUserLogin;
+import com.nhaowan.mobile.base.bean.User;
+import com.nhaowan.mobile.base.view.UserSectionView;
 import com.nhaowan.mobile.ui.adapter.LeftMenuAdapter;
 import com.nhaowan.mobile.ui.fragment.GameNewsListFragment;
+import com.nhaowan.mobile.ui.fragment.MyCricleConfFragment;
 import com.nhaowan.mobile.ui.fragment.SettingFragment;
-import com.nhaowan.mobile.ui.fragment.TestFragment;
 
 public class MainActivity extends ActionBarActivity {
 	private DrawerLayout mDrawer;
@@ -41,6 +39,7 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.activity_my_main);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
@@ -74,10 +73,10 @@ public class MainActivity extends ActionBarActivity {
 		menus.add(new InnerMenu(2, getString(R.string.page_download), false));
 		menus.add(new InnerMenu(3, getString(R.string.page_setting), false));
 		leftMenuAdapter = new LeftMenuAdapter(this, menus);
-		
-		//addHeader
+
+		// addHeader
 		mDrawerList.addHeaderView(addHeaderView());
-		
+
 		if (mDrawerList != null) {
 			mDrawerList.setAdapter(leftMenuAdapter);
 			mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -85,19 +84,19 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	private View addHeaderView() {
-		View headerView = LayoutInflater.from(this).inflate(R.layout.user_heard_cardview, null, false);
-
-		CardView cardView = (CardView) headerView.findViewById(R.id.user_heard_cardview);
-		UserSectionCard userSectionView = new UserSectionCard(this);
-		cardView.setCard(userSectionView);
-		userSectionView.setOnAuthinizeListener(new IUserLogin() {
-
-			@Override
-			public void onStartLogin(PLATFORM form) {
-
-			}
-		});
-		return headerView;
+//		View headerView = LayoutInflater.from(this).inflate(R.layout.user_heard_cardview, null, false);
+		UserSectionView userSectionView = new UserSectionView(this);
+//		CardView cardView = (CardView) headerView.findViewById(R.id.user_heard_cardview);
+//		UserSectionCard userSectionView = new UserSectionCard(this);
+//		cardView.setCard(userSectionView);
+//		userSectionView.setOnAuthinizeListener(new IUserLogin() {
+//
+//			@Override
+//			public void onStartLogin(PLATFORM form) {
+//
+//			}
+//		});
+		return userSectionView;
 	}
 
 	@Override
@@ -109,8 +108,15 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+			return true;
+		} else if (item.getItemId() == R.id.menu_mycricle) {
+			if(!TextUtils.isEmpty(User.getInstance().getId())) {
+				openFragment(new MyCricleConfFragment());
+			} else {
+				openFragment(new MyCricleConfFragment());
+			}
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -137,12 +143,12 @@ public class MainActivity extends ActionBarActivity {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			InnerMenu menu = (InnerMenu)mDrawerList.getItemAtPosition(position);
-			
+			InnerMenu menu = (InnerMenu) mDrawerList.getItemAtPosition(position);
+
 			getActionBar().setTitle(menu.getTitle());
 			openFragment(menu.getId());
 			mDrawer.closeDrawer(mDrawerList);
-			
+
 			checkSelected(menu.getId());
 		}
 	}
@@ -150,7 +156,7 @@ public class MainActivity extends ActionBarActivity {
 	public void openFragment(int position) {
 		if (position == 0) {
 			// 首页
-			openFragment(new GameNewsListFragment());
+			openFragment(new GameNewsListFragment()/*GameNewsListFragment()*/);
 		} else if (position == 1) {
 			// 圈子
 		} else if (position == 2) {
@@ -163,7 +169,7 @@ public class MainActivity extends ActionBarActivity {
 
 	public void checkSelected(int id) {
 		for (int i = 0; i < menus.size(); i++) {
-			if(id == menus.get(i).getId()) {
+			if (id == menus.get(i).getId()) {
 				menus.get(i).setChecked(true);
 			} else {
 				menus.get(i).setChecked(false);

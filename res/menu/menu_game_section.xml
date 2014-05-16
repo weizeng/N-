@@ -2,16 +2,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <item
-        android:id="@+id/menu_game_section_add"
+        android:id="@+id/menu_game_circle_add"
         android:orderInCategory="1"
         android:title="加入圈子"
         android:visible="true"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/menu_game_section_down"
+        android:id="@+id/menu_game_circle_ask"
         android:orderInCategory="2"
-        android:title="下载"
+        android:title="我要提问"
         android:visible="true"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_game_circle_down"
+        android:orderInCategory="2"
+        android:title="分享"
+        android:visible="true"
+        app:showAsAction="never">
+        <menu xmlns:app="http://schemas.android.com/apk/res-auto" >
+            <item
+                android:id="@+id/menu_head_item_sina"
+                android:orderInCategory="1"
+                android:title="新浪微博"
+                android:visible="true"
+                app:showAsAction="never"/>
+            <item
+                android:id="@+id/menu_head_item_tenc"
+                android:orderInCategory="2"
+                android:title="腾讯微博"
+                android:visible="true"
+                app:showAsAction="never"/>
+        </menu>
+    </item>
 
 </menu>

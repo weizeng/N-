@@ -6,15 +6,16 @@
     android:baselineAligned="false"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:padding="8dp" >
+    >
 
-    <com.nhaowan.mobile.base.cards.header.UserHeaderCardView
-        android:id="@+id/new_item_poster_view"
-        style="@style/card.header_outer_layout"
-        android:layout_width="wrap_content"
+    <com.nhaowan.mobile.base.view.UserSectionView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <!-- 标题 -->
+
     <LinearLayout
+        android:padding="8dp" 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
@@ -41,14 +42,17 @@
             android:textColor="#58585B"
             android:textSize="12sp" />
     </LinearLayout>
+    <!-- 文字内容 -->
 
     <TextView
         android:id="@+id/common_list_item_text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:lineSpacingMultiplier="1.2"
         android:text="description"
-        android:textColor="#58585B"
-        android:textSize="15sp" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <!-- 图片 -->
 
     <com.haha.frame.widget.AutoImageView
         android:id="@+id/common_list_item_image"
@@ -60,11 +64,12 @@
         android:contentDescription="@string/app_name"
         android:minHeight="300dp"
         android:scaleType="centerCrop" />
+    <!-- 底部 -->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" >
+        android:layout_margin="5dp" >
 
         <TextView
             android:id="@+id/new_item_zan_count"
@@ -90,27 +95,8 @@
             android:background="@drawable/bg_btn_selector"
             android:drawableLeft="@drawable/ic_comment_selector"
             android:text="89" />
-        <!--
-        <TextView
-            android:id="@+id/common_list_item_text3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:gravity="right"
-            android:singleLine="true"
-            android:text="time"
-            android:textColor="#58585B"
-            android:textSize="13sp" />
-
-        <TextView
-            android:id="@+id/common_list_item_subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#565656"
-            android:textSize="12sp"
-            android:visibility="gone" />
-        -->
     </RelativeLayout>
+
+    
 
 </LinearLayout>

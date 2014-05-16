@@ -18,6 +18,8 @@
 package com.nhaowan.mobile.base;
 
 
+import com.nhaowan.mobile.R;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
@@ -38,11 +40,13 @@ public abstract class BaseFragment extends Fragment {
         setTitle();
     }
 
-    protected void setTitle(){
-        getActivity().setTitle(getTitleResourceId());
-    }
+	protected void setTitle() {
+		getActivity().setTitle(getTitleResourceId() == 0 ? getTitle() : getString(getTitleResourceId()));
+	}
 
-    public abstract int getTitleResourceId();
+    public int getTitleResourceId(){return 0;};
+    
+    public String getTitle(){return "";}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

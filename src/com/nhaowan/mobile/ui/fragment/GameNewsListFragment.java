@@ -20,7 +20,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 
@@ -35,7 +34,6 @@ import com.nhaowan.mobile.base.BaseFragment;
 import com.nhaowan.mobile.base.bean.AppCategoryBean;
 import com.nhaowan.mobile.base.bean.NewsBean;
 import com.nhaowan.mobile.base.bean.TopBean;
-import com.nhaowan.mobile.base.logic.GameNewsManager;
 import com.nhaowan.mobile.base.response.NewsBusinessResponse;
 import com.nhaowan.mobile.base.task.NSysInitialProxy;
 import com.nhaowan.mobile.base.utils.Contants;
@@ -44,6 +42,7 @@ import com.nhaowan.mobile.base.view.GameNewsLoadMoreListView.AbsLoadDataManager;
 import com.nhaowan.mobile.base.view.GameNewsLoadMoreListView.RefreshParams;
 import com.nhaowan.mobile.ui.adapter.GameNewHeaderArrayAdapter;
 import com.nhaowan.mobile.ui.adapter.TopGalleryAdapter;
+import com.nhaowan.mobile.ui.logic.GameNewsManager;
 
 public class GameNewsListFragment extends BaseFragment implements OnRefreshListener, OnNavigationListener {
 
@@ -56,7 +55,7 @@ public class GameNewsListFragment extends BaseFragment implements OnRefreshListe
 	private ArrayList<TopBean> topList = new ArrayList<TopBean>();
 	private TopGalleryAdapter galleryAdapter;
 	private int circleSelectedPosition = 0;
-	private View headView;
+	private View headView, emptyView;
 	private AutoGallery gallery;
 	private FlowIndicator galleryFlowIndicator;
 	private boolean isInitHeader = true;
@@ -83,6 +82,7 @@ public class GameNewsListFragment extends BaseFragment implements OnRefreshListe
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		headView = inflater.inflate(R.layout.gallery_header, null);
+		emptyView = new View(getActivity());
 		return inflater.inflate(R.layout.fragment_game_news, container, false);
 	}
 
@@ -231,7 +231,6 @@ public class GameNewsListFragment extends BaseFragment implements OnRefreshListe
 			}
 
 		});
-
 	}
 
 	private void initHeader() {
@@ -253,12 +252,6 @@ public class GameNewsListFragment extends BaseFragment implements OnRefreshListe
 
 			}
 		});
-		// gallery监听
-		gallery.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
-
-			}
-		});
 
 		gallery.setAdapter(galleryAdapter);
 	}
@@ -270,10 +263,6 @@ public class GameNewsListFragment extends BaseFragment implements OnRefreshListe
 
 		mListView = (GameNewsLoadMoreListView<NewsBusinessResponse>) view
 				.findViewById(R.id.carddemo_extra_sticky_list);
-		if (mListView != null) {
-			mListView.addHeaderView(headView);
-			mListView.setAdapter(mAdapter);
-		}
 
 		// 初始化下拉刷新
 		mPullToRefreshLayout = (PullToRefreshLayout) view.findViewById(R.id.carddemo_extra_ptr_layout);
@@ -323,7 +312,7 @@ public class GameNewsListFragment extends BaseFragment implements OnRefreshListe
 		inflater.inflate(R.menu.menu_main_fragment, menu);
 		super.onCreateOptionsMenu(menu, inflater);
 	}
-
+	
 	private void populateNavigationList() {
 
 		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
@@ -365,14 +354,17 @@ public class GameNewsListFragment extends BaseFragment implements OnRefreshListe
 	}
 
 	private void removeOrAddHeaderByCategory(int position) {
+		if (mListView.getHeaderViewsCount() > 0) {
+			mListView.removeHeaderView(emptyView);
+			mListView.removeHeaderView(headView);
+		}
 		if (position == 0) {
-			if (mListView.getHeaderViewsCount() == 0) {
-				mListView.addHeaderView(headView);
-			}
+			mListView.addHeaderView(headView);
 		} else {
-			if (mListView.getHeaderViewsCount() > 0) {
-				mListView.removeHeaderView(headView);
-			}
+			mListView.addHeaderView(emptyView);
+		}
+		if (mListView != null) {
+			mListView.setAdapter(mAdapter);
 		}
 	}
 }

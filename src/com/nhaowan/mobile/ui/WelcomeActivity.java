@@ -71,17 +71,17 @@ public class WelcomeActivity extends Activity {
 			}
 		});
 
-		Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-
-			@Override
-			public void uncaughtException(Thread arg0, Throwable arg1) {
-				CommonUtils.showToast(WelcomeActivity.this, "Oh, 不给力，居然奔溃！");
-
-				StringWriter sw = new StringWriter();
-				PrintWriter pw = new PrintWriter(sw);
-				StatService.onEvent(WelcomeActivity.this, "panic", sw.toString(), 1);
-			}
-		});
+//		Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+//
+//			@Override
+//			public void uncaughtException(Thread arg0, Throwable arg1) {
+//				CommonUtils.showToast(WelcomeActivity.this, "Oh, 不给力，居然奔溃！");
+//
+//				StringWriter sw = new StringWriter();
+//				PrintWriter pw = new PrintWriter(sw);
+//				StatService.onEvent(WelcomeActivity.this, "panic", sw.toString(), 1);
+//			}
+//		});
 	}
 
 	protected void toMainOrActionActivity() {

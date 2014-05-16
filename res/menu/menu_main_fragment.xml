@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.nhaowan.mobile.ui.MainActivity" >
      <item
-        android:id="@+id/menu_crouton1"
+        android:id="@+id/menu_mycricle"
         android:title="我的圈子"
         android:orderInCategory="1"
         app:showAsAction="always"/>

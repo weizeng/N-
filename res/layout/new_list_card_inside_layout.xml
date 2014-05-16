@@ -18,20 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-            <it.gmariotti.cardslib.library.view.CardView
+			
+             <FrameLayout
                 android:id="@+id/card_main_content_layout"
                 style="@style/card.content_outer_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                card:card_layout_resourceID="@layout/user_header" />
-			
-            <it.gmariotti.cardslib.library.view.CardView
-                android:id="@+id/game_inner_cardview"
-                style="@style/card.content_outer_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                card:card_layout_resourceID="@layout/new_listview_item_bigpic" />
+                android:layout_height="match_parent"/>
         </LinearLayout>
     </LinearLayout>
 

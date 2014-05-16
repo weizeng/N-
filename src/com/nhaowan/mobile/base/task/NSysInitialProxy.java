@@ -114,7 +114,9 @@ public class NSysInitialProxy {
 			public void onComplete(ArrayList<GameCategoryBean> t) {
 				status = Status.COMPLETE;
 				Log.d(TAG, "GameCategoryTask has complete");
-				gameCategoryList = ((ArrayList<GameCategoryBean>) t.clone());
+				if(t != null) {
+					gameCategoryList = ((ArrayList<GameCategoryBean>) t.clone());
+				}
 				// fetcher.onProgress(gameCategoryList);
 				checkTaskAllComplete(fetcher);
 			}
@@ -128,7 +130,7 @@ public class NSysInitialProxy {
 			@Override
 			public void onComplete(ArrayList<AppCategoryBean> t) {
 				Log.d(TAG, "AppCategoryTask has complete");
-				if (fetcher != null) {
+				if (fetcher != null && t != null) {
 					appCategoryList = ((ArrayList<AppCategoryBean>) t.clone());
 					if (fetcher != null) {
 						fetcher.onProgress(appCategoryList);
@@ -151,6 +153,9 @@ public class NSysInitialProxy {
 	}
 
 	void checkTaskAllComplete(INSConf fetcher) {
+		if(homeTask == null || versionTask == null || appTask == null || gameTask == null) {
+			return;
+		}
 		if (versionTask.getStatus() == Status.COMPLETE && homeTask.getStatus() == Status.COMPLETE
 				&& gameTask.getStatus() == Status.COMPLETE && appTask.getStatus() == Status.COMPLETE) {
 			if (fetcher != null) {
@@ -173,6 +178,9 @@ public class NSysInitialProxy {
 	}
 
 	public ArrayList<String> getAppCategoryNames() {
+		if (getAppCategoryList() == null) {
+			return new ArrayList<String>();
+		}
 		ArrayList<String> names = new ArrayList<String>();
 		for (AppCategoryBean bean : getAppCategoryList()) {
 			names.add(bean.getCatname());

@@ -13,6 +13,7 @@ public class Contants {
 			+ "/nhaowan/";
 	public final static String PATH_SDCARD_FILES = PATH_SDCARD_ROOT + "files/";
 	public final static String PATH_SDCARD_IMAGES = PATH_SDCARD_ROOT + "images/";
+	public final static String PATH_SDCARD_SAVE_IMAGES = PATH_SDCARD_ROOT + "save/";
 
 	public final static String SERVICE_ROOT = "http://www.nhaowan.com";
 

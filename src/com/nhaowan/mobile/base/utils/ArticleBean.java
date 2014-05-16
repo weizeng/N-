@@ -9,30 +9,37 @@ public class ArticleBean implements Serializable {
 	public final static int TYPE_DESPLAY_PICTURE = 1;
 	public static final int TEXT_STYLE_BOLD = 1;
 	public static final int TEXT_STYLE_NORMAL = 0;
-	private String contentFragment;
+	private String text;
 	private String picUrl;
 	private String alt;
 	private int textStyle;
 
 	private ArrayList<String> needDownloadUrl = new ArrayList<String>();
 
-	public ArticleBean(String contentFragment, String url, String alt, int textStyle) {
+	public ArticleBean(String contentFragment, String url, String alt) {
 		super();
-		this.contentFragment = contentFragment;
+		this.text = contentFragment;
 		this.picUrl = url;
 		this.alt = alt;
-		this.textStyle = textStyle;
 	}
 
 	public ArticleBean() {
 	}
-
-	public String getContentFragment() {
-		return contentFragment;
+	
+	public String getText() {
+		return text;
 	}
 
-	public void setContentFragment(String contentFragment) {
-		this.contentFragment = contentFragment;
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String getPicUrl() {
+		return picUrl;
+	}
+
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
 	}
 
 	public String getUrl() {

@@ -44,7 +44,7 @@ public abstract class AppCategoryTask extends AbsProxyTask<ArrayList<AppCategory
 			e.printStackTrace();
 		}
 
-		if (!checkDataExperid && cbs != null) {
+		if ((!checkDataExperid && cbs != null) || !AsyncHttpManager.getInstance().checkConnection(mContext)) {
 			// fetcher.onFetcherSuccess(cbs);
 			// return true;
 			onComplete(cbs);
