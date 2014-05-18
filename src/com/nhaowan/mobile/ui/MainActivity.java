@@ -24,6 +24,7 @@ import com.nhaowan.mobile.base.bean.InnerMenu;
 import com.nhaowan.mobile.base.bean.User;
 import com.nhaowan.mobile.base.view.UserSectionView;
 import com.nhaowan.mobile.ui.adapter.LeftMenuAdapter;
+import com.nhaowan.mobile.ui.fragment.GameCircleFragment;
 import com.nhaowan.mobile.ui.fragment.GameNewsListFragment;
 import com.nhaowan.mobile.ui.fragment.MyCricleConfFragment;
 import com.nhaowan.mobile.ui.fragment.SettingFragment;
@@ -159,6 +160,7 @@ public class MainActivity extends ActionBarActivity {
 			openFragment(new GameNewsListFragment()/*GameNewsListFragment()*/);
 		} else if (position == 1) {
 			// 圈子
+			openFragment(new GameCircleFragment()/*GameNewsListFragment()*/);
 		} else if (position == 2) {
 			// 下载
 		} else if (position == 3) {
@@ -184,7 +186,7 @@ public class MainActivity extends ActionBarActivity {
 			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
 			fragmentTransaction.replace(R.id.fragment_main_extras, baseFragment);
-			fragmentTransaction.addToBackStack(null);
+//			fragmentTransaction.addToBackStack(null);
 			fragmentTransaction.commit();
 		}
 	}

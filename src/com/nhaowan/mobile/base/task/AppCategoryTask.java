@@ -38,12 +38,7 @@ public abstract class AppCategoryTask extends AbsProxyTask<ArrayList<AppCategory
 			cbs = new ArrayList<AppCategoryBean>();
 		}
 		Object obj = null;
-		try {
-			cbs = (ArrayList<AppCategoryBean>) FileSerializable.readFromLocal(Contants.SERIAL_CATEGORY_FILE);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		obj = getNativeAppCategory();
 		if ((!checkDataExperid && cbs != null) || !AsyncHttpManager.getInstance().checkConnection(mContext)) {
 			// fetcher.onFetcherSuccess(cbs);
 			// return true;
@@ -70,6 +65,16 @@ public abstract class AppCategoryTask extends AbsProxyTask<ArrayList<AppCategory
 			}
 			fetchAppCatgory(mContext);
 		}
+	}
+
+	public ArrayList<AppCategoryBean> getNativeAppCategory() {
+		try {
+			cbs = (ArrayList<AppCategoryBean>) FileSerializable.readFromLocal(Contants.SERIAL_CATEGORY_FILE);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return cbs;
 	}
 
 	private synchronized void fetchAppCatgory(final Context mContext) {

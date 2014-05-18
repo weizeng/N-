@@ -1,21 +1,27 @@
 package com.nhaowan.mobile.ui.adapter;
 
 import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.Card.OnCardClickListener;
 import it.gmariotti.cardslib.library.view.AbsStickHeaderAdapter;
+import it.gmariotti.cardslib.library.view.CardView;
 
 import java.util.List;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nhaowan.mobile.R;
+import com.haha.frame.common.CommonUtils;
 import com.nhaowan.mobile.base.view.GameSectionView;
 
 public class GameNewHeaderArrayAdapter extends AbsStickHeaderAdapter {
+	boolean isNeedHeaderView;
 	public GameNewHeaderArrayAdapter(Context mContext, List<Card> cards) {
 		super(mContext, cards);
+	}
+
+	public void setNeedHeaderView(boolean isNeedHeaderView) {
+		this.isNeedHeaderView = isNeedHeaderView;
 	}
 
 	class HeaderViewHolder {
@@ -24,18 +30,18 @@ public class GameNewHeaderArrayAdapter extends AbsStickHeaderAdapter {
 
 	@Override
 	public View getHeaderView(int position, View convertView, ViewGroup viewGroup) {
-		HeaderViewHolder headerViewHolder;
-		if (convertView == null) {
-			headerViewHolder = new HeaderViewHolder();
-			convertView = new GameSectionView(getContext());
-//			convertView = LayoutInflater.from(getContext()).inflate(R.layout.game_header_layout, null);
-//			headerViewHolder.cardView = (GameSectionView) convertView
-//					.findViewById(R.id.game_heard_cardview);
-			convertView.setTag(headerViewHolder);
+		if(isNeedHeaderView) {
+			HeaderViewHolder headerViewHolder;
+			if (convertView == null) {
+				headerViewHolder = new HeaderViewHolder();
+				convertView = new GameSectionView(getContext());
+				convertView.setTag(headerViewHolder);
+			} else {
+				headerViewHolder = (HeaderViewHolder) convertView.getTag();
+			}
 		} else {
-			headerViewHolder = (HeaderViewHolder) convertView.getTag();
+			convertView = new View(mContext);
 		}
-
 		return convertView;
 	}
 

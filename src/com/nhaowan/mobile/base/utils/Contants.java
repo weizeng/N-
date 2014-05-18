@@ -1,7 +1,9 @@
 package com.nhaowan.mobile.base.utils;
 
 public class Contants {
-
+	public static final String app_id = "10001";
+	public static final String app_key = "89765f16cc764bcd8c5ef39337d7c250";
+	
 	public static final String UPDATE_INIT_FILE = "UPDATE_INIT_FILE";
 	public static final String UPDATE_INIT_FILE_KEY = "UPDATE_INIT_FILE_KEY";
 	public static final String UPDATE_INIT_CATEGORY_KEY = "UPDATE_INIT_CATEGORY_KEY";

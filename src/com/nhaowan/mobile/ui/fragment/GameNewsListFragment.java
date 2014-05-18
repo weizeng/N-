@@ -4,6 +4,8 @@ import it.gmariotti.cardslib.library.internal.Card;
 
 import java.util.ArrayList;
 
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView.OnHeaderClickListener;
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
@@ -23,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 
+import com.haha.frame.common.CommonUtils;
 import com.haha.frame.net.AsyncHttpManager;
 import com.haha.frame.net.IFetcher;
 import com.haha.frame.utils.FileSerializable;
@@ -37,9 +40,9 @@ import com.nhaowan.mobile.base.bean.TopBean;
 import com.nhaowan.mobile.base.response.NewsBusinessResponse;
 import com.nhaowan.mobile.base.task.NSysInitialProxy;
 import com.nhaowan.mobile.base.utils.Contants;
-import com.nhaowan.mobile.base.view.GameNewsLoadMoreListView;
-import com.nhaowan.mobile.base.view.GameNewsLoadMoreListView.AbsLoadDataManager;
-import com.nhaowan.mobile.base.view.GameNewsLoadMoreListView.RefreshParams;
+import com.nhaowan.mobile.base.view.AbsLoadDataManager;
+import com.nhaowan.mobile.base.view.CardHeaderMoreListView;
+import com.nhaowan.mobile.base.view.RefreshParams;
 import com.nhaowan.mobile.ui.adapter.GameNewHeaderArrayAdapter;
 import com.nhaowan.mobile.ui.adapter.TopGalleryAdapter;
 import com.nhaowan.mobile.ui.logic.GameNewsManager;
@@ -47,7 +50,7 @@ import com.nhaowan.mobile.ui.logic.GameNewsManager;
 public class GameNewsListFragment extends BaseFragment implements OnRefreshListener, OnNavigationListener {
 
 	private PullToRefreshLayout mPullToRefreshLayout;
-	private GameNewsLoadMoreListView<NewsBusinessResponse> mListView;
+	private CardHeaderMoreListView<NewsBusinessResponse> mListView;
 	private Context mContext;
 	private GameNewHeaderArrayAdapter mAdapter;
 
@@ -246,6 +249,13 @@ public class GameNewsListFragment extends BaseFragment implements OnRefreshListe
 				}
 				circleSelectedPosition = position % topList.size();
 				galleryFlowIndicator.setSeletion(circleSelectedPosition);
+
+//				Bundle bundle = new Bundle();
+//				bundle.putParcelable("news", fff);
+//
+//				mContext.startActivity(new Intent(getActivity(), GameDetailActivity.class));
+						
+				
 			}
 
 			public void onNothingSelected(AdapterView<?> arg0) {
@@ -261,9 +271,9 @@ public class GameNewsListFragment extends BaseFragment implements OnRefreshListe
 		// Set the adapter
 		mAdapter = new GameNewHeaderArrayAdapter(mContext, new ArrayList<Card>());
 
-		mListView = (GameNewsLoadMoreListView<NewsBusinessResponse>) view
+		mListView = (CardHeaderMoreListView<NewsBusinessResponse>) view
 				.findViewById(R.id.carddemo_extra_sticky_list);
-
+		 
 		// 初始化下拉刷新
 		mPullToRefreshLayout = (PullToRefreshLayout) view.findViewById(R.id.carddemo_extra_ptr_layout);
 		ActionBarPullToRefresh.from(getActivity()).theseChildrenArePullable(mListView.getWrappedList())
@@ -363,6 +373,7 @@ public class GameNewsListFragment extends BaseFragment implements OnRefreshListe
 		} else {
 			mListView.addHeaderView(emptyView);
 		}
+		mAdapter.setNeedHeaderView(position == 0);
 		if (mListView != null) {
 			mListView.setAdapter(mAdapter);
 		}

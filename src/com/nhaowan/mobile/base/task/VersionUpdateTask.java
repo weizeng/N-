@@ -9,12 +9,11 @@ import com.haha.frame.net.AsyncHttpManager;
 import com.haha.frame.net.IWAsyncHttpResponseHandler;
 import com.haha.frame.utils.DeviceUtils;
 import com.nhaowan.mobile.base.response.UpdateAppResponse;
-import com.nhaowan.mobile.base.task.IProxyTask.Status;
 import com.nhaowan.mobile.base.utils.Contants;
 
 public abstract class VersionUpdateTask extends AbsProxyTask<UpdateAppResponse> {
 
-	VersionUpdateTask(Context mContext) {
+	public VersionUpdateTask(Context mContext) {
 		super(mContext);
 	}
 	@Override

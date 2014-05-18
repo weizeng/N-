@@ -60,7 +60,7 @@ public class TestFragment extends BaseFragment {
         //Set the adapter
         GameNewHeaderArrayAdapter adapter = new GameNewHeaderArrayAdapter(getActivity(), cards);
 
-        com.nhaowan.mobile.base.view.GameNewsLoadMoreListView stickyList = (com.nhaowan.mobile.base.view.GameNewsLoadMoreListView) getActivity().findViewById(R.id.carddemo_extra_sticky_list);
+        com.nhaowan.mobile.base.view.CardHeaderMoreListView stickyList = (com.nhaowan.mobile.base.view.CardHeaderMoreListView) getActivity().findViewById(R.id.carddemo_extra_sticky_list);
         //stickyList.setAreHeadersSticky(false);
         if (stickyList != null) {
             stickyList.setAdapter(adapter);

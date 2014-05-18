@@ -37,7 +37,7 @@ public class UserPreference extends Preference {
 	@Override
 	protected void onBindView(View view) {
 		super.onBindView(view);
-		UserSectionView cardView = (UserSectionView) view.findViewById(R.id.user_heard_cardview);
+//		UserSectionView cardView = (UserSectionView) view.findViewById(R.id.user_heard_cardview);
 		 
 	}
 

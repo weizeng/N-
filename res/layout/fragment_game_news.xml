@@ -17,13 +17,13 @@
             android:layout_height="match_parent"
             android:fillViewport="true" >
 
-            <com.nhaowan.mobile.base.view.GameNewsLoadMoreListView
+            <com.nhaowan.mobile.base.view.CardHeaderMoreListView
                 android:id="@+id/carddemo_extra_sticky_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                   >
-            </com.nhaowan.mobile.base.view.GameNewsLoadMoreListView>
+            </com.nhaowan.mobile.base.view.CardHeaderMoreListView>
         </ScrollView>
     </uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout>
-
+<!-- 游戏资讯 暂时不用自定义 -->
 </LinearLayout> <!-- From: file:/Users/leo/Downloads/cardslib-master/demo/extras/src/main/res/layout/demo_extras_fragment_sticky.xml -->

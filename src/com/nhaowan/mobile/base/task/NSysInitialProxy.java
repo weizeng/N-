@@ -170,11 +170,12 @@ public class NSysInitialProxy {
 	}
 
 	public ArrayList<GameCategoryBean> getGameCategoryList() {
-		return gameCategoryList;
+		return gameCategoryList == null ? ((GameCategoryTask) gameTask).getNativeAppCategory()
+				: gameCategoryList;
 	}
 
 	public ArrayList<AppCategoryBean> getAppCategoryList() {
-		return appCategoryList;
+		return appCategoryList == null ? ((AppCategoryTask) appTask).getNativeAppCategory() : appCategoryList;
 	}
 
 	public ArrayList<String> getAppCategoryNames() {
@@ -185,6 +186,18 @@ public class NSysInitialProxy {
 		for (AppCategoryBean bean : getAppCategoryList()) {
 			names.add(bean.getCatname());
 		}
+		return names;
+	}
+	
+	public ArrayList<String> getMyCirclesNames() {
+	 
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("所有");
+		names.add("2048");
+		names.add("愤怒的小鸟");
+//		for (AppCategoryBean bean : getAppCategoryList()) {
+//			names.add(bean.getCatname());
+//		}
 		return names;
 	}
 

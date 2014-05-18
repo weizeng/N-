@@ -5,19 +5,27 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:gravity="center_vertical"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical" >
 
-    <com.nhaowan.mobile.base.view.UserSectionView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" >
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gamecenter_tuijian" />
+
+        <com.nhaowan.mobile.base.view.UserSectionView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
     <!-- 标题 -->
 
     <LinearLayout
-        android:padding="8dp" 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal" >
 
         <TextView
@@ -38,6 +46,7 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/abc_ab_transparent_dark_holo"
             android:gravity="bottom"
+            android:paddingRight="8dp"
             android:text="推荐"
             android:textColor="#58585B"
             android:textSize="12sp" />
@@ -96,7 +105,5 @@
             android:drawableLeft="@drawable/ic_comment_selector"
             android:text="89" />
     </RelativeLayout>
-
-    
 
 </LinearLayout>

@@ -3,9 +3,11 @@
     package="com.nhaowan.mobile"
     android:versionCode="102"
     android:versionName="1.2" >
+
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="19"/>
+        android:targetSdkVersion="19" />
+
     <application
         android:name="com.nhaowan.mobile.base.WanApplication"
         android:allowBackup="true"
@@ -13,7 +15,44 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light" >
+      
         <activity
+            android:name="com.nhaowan.mobile.ui.WelcomeActivity"
+            android:configChanges="keyboardHidden|navigation|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.nhaowan.mobile.ui.ActionActivity"
+            android:configChanges="keyboardHidden|navigation|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.nhaowan.mobile.ui.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" />
+         <activity
+            android:name="com.nhaowan.mobile.ui.GameCircleActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/Support.TransparentTheme" 
+             />
+        
+        <activity
+            android:name="com.nhaowan.mobile.ui.GameDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/Support.TransparentTheme" />
+        <!-- end this  -->
+        
+        
+          <activity
             android:name="com.baidu.frontia.activity.share.FrontiaSocialOAuthActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
@@ -30,27 +69,8 @@
             android:name="com.nhaowan.mobile.ui.WXEntryActivity"
             android:exported="true"
             android:label="@string/app_name" />
-        <activity
-            android:name="com.nhaowan.mobile.ui.WelcomeActivity"
-            android:configChanges="keyboardHidden|navigation|orientation"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.nhaowan.mobile.ui.ActionActivity"
-            android:configChanges="keyboardHidden|navigation|orientation"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.nhaowan.mobile.ui.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name"
-            android:launchMode="singleTask"
-             />
+        
+        
         <activity
             android:name="com.nhaowan.mobile.ui.WebActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -76,7 +96,8 @@
             android:configChanges="keyboardHidden|orientation"
             android:label="Push_notification_test" />
 
-       <!--  <receiver android:name="com.nhaowan.mobile.ui.MyPushMessageReceiver" >
+        <!--
+<receiver android:name="com.nhaowan.mobile.ui.MyPushMessageReceiver" >
             <intent-filter>
                 <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
                 <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
@@ -110,7 +131,8 @@ android:uiOptions="splitActionBarWhenNarrow"
         <service
             android:name="com.baidu.android.pushservice.PushService"
             android:exported="true"
-            android:process=":bdservice_v1" /> -->
+            android:process=":bdservice_v1" />
+        -->
 
         <meta-data
             android:name="api_key"

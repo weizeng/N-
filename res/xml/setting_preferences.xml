@@ -11,6 +11,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="其他选项" >
         <PreferenceScreen
+            android:key="setting_key_feedback_preference"
             android:summary="把您发现的问题以及意见告诉我们"
             android:title="反馈" >
             <com.nhaowan.mobile.ui.preference.FeedbackPreference />

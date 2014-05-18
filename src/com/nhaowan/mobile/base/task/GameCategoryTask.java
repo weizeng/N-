@@ -17,6 +17,7 @@ import com.haha.frame.utils.FileSerializable;
 import com.haha.frame.utils.JsonUtils;
 import com.haha.frame.utils.Log;
 import com.haha.frame.utils.SharedPreferencesUtil;
+import com.nhaowan.mobile.base.bean.AppCategoryBean;
 import com.nhaowan.mobile.base.bean.GameCategoryBean;
 import com.nhaowan.mobile.base.task.IProxyTask.Status;
 import com.nhaowan.mobile.base.utils.Contants;
@@ -35,11 +36,7 @@ public abstract class GameCategoryTask extends AbsProxyTask<ArrayList<GameCatego
 	@Override
 	public void onTaskStart() {
 		status = Status.GOING;
-		try {
-			gcb = (ArrayList<GameCategoryBean>) FileSerializable.readFromLocal(Contants.SERIAL_CAT_MAP);
-		} catch (Exception e1) {
-		}
-
+		gcb = getNativeAppCategory();
 		String timeStr = SharedPreferencesUtil.getContactPreference(mContext, Contants.UPDATE_INIT_FILE, ""
 				+ Contants.UPDATE_INIT_CATEGORY_GAME_KEY);
 		if (!AsyncHttpManager.getInstance().checkConnection(mContext)
@@ -70,6 +67,7 @@ public abstract class GameCategoryTask extends AbsProxyTask<ArrayList<GameCatego
 					public void onSuccess(int statusCode, Header[] headers, String content) {
 						fetchGameCategorySuccess(mContext, content);
 					}
+
 					@Override
 					public void onFailure(Throwable error, String content) {
 						super.onFailure(error, content);
@@ -109,6 +107,15 @@ public abstract class GameCategoryTask extends AbsProxyTask<ArrayList<GameCatego
 		} else {
 		}
 
+	}
+
+	public ArrayList<GameCategoryBean> getNativeAppCategory() {
+		ArrayList<GameCategoryBean> gcb = null;
+		try {
+			gcb = (ArrayList<GameCategoryBean>) FileSerializable.readFromLocal(Contants.SERIAL_CAT_MAP);
+		} catch (Exception e1) {
+		}
+		return gcb;
 	}
 
 }

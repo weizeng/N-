@@ -15,5 +15,8 @@
     <dimen name="circles_grid_columnwidth_card">125dp</dimen>
     <dimen name="carddemo_gplay_grid_columnwidth">140dp</dimen>
     <dimen name="carddemo_gplay_grid_columnwidth_card">125dp</dimen>
+    <dimen name="circle_float_img_header_height">250dp</dimen>
+    <dimen name="circle_float_img_header_logo_size">100dp</dimen>
+    <dimen name="circle_float_img_bottom_tab_height">30dp</dimen>
 
 </resources>

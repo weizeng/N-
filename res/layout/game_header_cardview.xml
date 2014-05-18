@@ -16,5 +16,5 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="3dp"
         />
-
+<!-- 游戏栏目的 section  -->
 </LinearLayout>
