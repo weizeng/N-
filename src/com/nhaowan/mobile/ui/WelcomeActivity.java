@@ -1,7 +1,5 @@
 package com.nhaowan.mobile.ui;
 
-import java.io.File;
-
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -15,13 +13,14 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.baidu.mobstat.StatService;
-import com.haha.frame.core.BitmapCacheUtils;
-import com.haha.frame.utils.SharedPreferencesUtil;
+import com.leo.utils.PreferenceUtils;
 import com.nhaowan.mobile.R;
 import com.nhaowan.mobile.base.response.UpdateAppResponse;
 import com.nhaowan.mobile.base.task.NSysInitialProxy;
 import com.nhaowan.mobile.base.task.NSysInitialProxy.INSConf;
 import com.nhaowan.mobile.base.utils.Contants;
+import com.nhaowan.mobile.base.utils.ImageManager;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class WelcomeActivity extends Activity {
 	private String TAG = WelcomeActivity.class.getSimpleName();
@@ -37,28 +36,27 @@ public class WelcomeActivity extends Activity {
 	}
 
 	private void init() {
-		ImageView loadingView = (ImageView) findViewById(R.id.init_imageview);
+		final ImageView loadingView = (ImageView) findViewById(R.id.init_imageview);
 		// 得到hashcode值
-		String tag = SharedPreferencesUtil.getContactPreference(this, Contants.UPDATE_INIT_FILE,
+		String tag = PreferenceUtils.getContactPreference(this, Contants.UPDATE_INIT_FILE,
 				Contants.UPDATE_INIT_FILE_KEY);
 
-		Bitmap bitmap = null;
 		if (!TextUtils.isEmpty(tag)) {
-			bitmap = BitmapCacheUtils.getCacheBitmapWithFile(tag,
-					new File(Contants.PATH_SDCARD_IMAGES + tag), 0, 0);
-		}
-		if (bitmap != null) {
-			loadingView.setImageBitmap(bitmap);
+			ImageLoader.getInstance().displayImage(tag, loadingView, ImageManager.getDisplayImageOption());
 		}
 
 		NSysInitialProxy.getInstance().initSysConf(this, new INSConf() {
 
 			@Override
 			public void onProgress(Object t) {
-				if (t != null && t instanceof UpdateAppResponse) {
-					UpdateAppResponse response = (UpdateAppResponse) t;
-					if (!TextUtils.isEmpty(response.getAppurl())) {
-						createNotifacation(response);
+				if (t != null) {
+					if (t instanceof UpdateAppResponse) {
+						UpdateAppResponse response = (UpdateAppResponse) t;
+						if (!TextUtils.isEmpty(response.getAppurl())) {
+							createNotifacation(response);
+						}
+					} else if (t instanceof Bitmap) {
+						loadingView.setImageBitmap((Bitmap) t);
 					}
 				}
 			}

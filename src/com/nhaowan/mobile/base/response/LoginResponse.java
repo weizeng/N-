@@ -1,7 +1,7 @@
 package com.nhaowan.mobile.base.response;
 
-import com.haha.frame.utils.Element;
-import com.haha.frame.widget.ListResult;
+import com.leo.utils.Element;
+import com.leo.widget.ListResult;
 
 public class LoginResponse extends ListResult {
 	@Element(value = "token")

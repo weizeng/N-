@@ -2,8 +2,8 @@ package com.nhaowan.mobile.base.response;
 
 import java.util.ArrayList;
 
-import com.haha.frame.utils.Element;
-import com.haha.frame.utils.ElementList;
+import com.leo.utils.Element;
+import com.leo.utils.ElementList;
 import com.nhaowan.mobile.base.bean.AppCategoryBean;
 
 public class AppCategoryResponse {

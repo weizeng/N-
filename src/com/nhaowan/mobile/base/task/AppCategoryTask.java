@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.haha.frame.net.AsyncHttpManager;
-import com.haha.frame.net.IWAsyncHttpResponseHandler;
-import com.haha.frame.utils.DateUtil;
-import com.haha.frame.utils.FileSerializable;
-import com.haha.frame.utils.SharedPreferencesUtil;
+import com.leo.net.AsyncHttpManager;
+import com.leo.net.IWAsyncHttpResponseHandler;
+import com.leo.utils.DateUtil;
+import com.leo.utils.FileSerializable;
+import com.leo.utils.PreferenceUtils;
 import com.nhaowan.mobile.base.bean.AppCategoryBean;
 import com.nhaowan.mobile.base.response.AppCategoryResponse;
-import com.nhaowan.mobile.base.task.IProxyTask.Status;
 import com.nhaowan.mobile.base.utils.Contants;
 
 public abstract class AppCategoryTask extends AbsProxyTask<ArrayList<AppCategoryBean>> {
@@ -46,7 +45,7 @@ public abstract class AppCategoryTask extends AbsProxyTask<ArrayList<AppCategory
 			return;
 		}
 
-		String timeStr = SharedPreferencesUtil.getContactPreference(mContext, Contants.UPDATE_INIT_FILE, ""
+		String timeStr = PreferenceUtils.getContactPreference(mContext, Contants.UPDATE_INIT_FILE, ""
 				+ Contants.UPDATE_INIT_CATEGORY_KEY);
 		if (!checkDataExperid) {
 			// 验证是否过期
@@ -88,7 +87,7 @@ public abstract class AppCategoryTask extends AbsProxyTask<ArrayList<AppCategory
 							cbs.clear();
 							cbs.addAll(t.getList());
 							onComplete(cbs);
-							SharedPreferencesUtil.saveConfInfo(mContext, Contants.UPDATE_INIT_FILE, ""
+							PreferenceUtils.saveConfInfo(mContext, Contants.UPDATE_INIT_FILE, ""
 									+ Contants.UPDATE_INIT_CATEGORY_KEY, System.currentTimeMillis() + "");
 
 							FileSerializable.serialize2Local(cbs, Contants.SERIAL_CATEGORY_FILE);

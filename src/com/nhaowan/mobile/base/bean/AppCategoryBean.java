@@ -8,8 +8,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.haha.frame.utils.Element;
-import com.haha.frame.utils.JsonUtils;
+import com.leo.utils.Element;
 
 public class AppCategoryBean implements Parcelable, Serializable {
 	private static final long serialVersionUID = 1L;

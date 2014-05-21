@@ -5,9 +5,9 @@ import java.util.HashMap;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 
-import com.haha.frame.net.AsyncHttpManager;
-import com.haha.frame.net.IWAsyncHttpResponseHandler;
-import com.haha.frame.utils.DeviceUtils;
+import com.leo.net.AsyncHttpManager;
+import com.leo.net.IWAsyncHttpResponseHandler;
+import com.leo.utils.DeviceUtils;
 import com.nhaowan.mobile.base.response.UpdateAppResponse;
 import com.nhaowan.mobile.base.utils.Contants;
 

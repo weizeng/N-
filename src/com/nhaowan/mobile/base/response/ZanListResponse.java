@@ -2,8 +2,8 @@ package com.nhaowan.mobile.base.response;
 
 import java.util.ArrayList;
 
-import com.haha.frame.utils.Element;
-import com.haha.frame.widget.ListResult;
+import com.leo.utils.Element;
+import com.leo.widget.ListResult;
 import com.nhaowan.mobile.base.bean.ZanBean;
 
 public class ZanListResponse extends ListResult {

@@ -15,16 +15,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.haha.frame.common.CommonUtils;
-import com.haha.frame.core.BitmapCacheUtils;
-import com.haha.frame.net.IFetcher;
-import com.haha.frame.utils.DeviceUtils;
-import com.haha.frame.utils.FileUtils;
+import com.leo.net.IFetcher;
+import com.leo.utils.DeviceUtils;
+import com.leo.utils.FileUtils;
 import com.nhaowan.mobile.R;
 import com.nhaowan.mobile.base.response.UpdateAppResponse;
 import com.nhaowan.mobile.base.utils.Contants;
 import com.nhaowan.mobile.ui.logic.AppSettingManager;
 import com.nhaowan.mobile.ui.preference.UserPreference;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class SettingFragment extends PreferenceFragment {
 	private final String TAG = SettingFragment.class.getSimpleName();
@@ -63,7 +65,7 @@ public class SettingFragment extends PreferenceFragment {
 
 		PackageInfo pi = DeviceUtils.getCurrentPacketInfo(getActivity());
 		if (pi != null) {
-			versionCheckPreference.setTitle("N+ 版本是: "+pi.versionName + "");
+			versionCheckPreference.setTitle("N+ 版本是: " + pi.versionName + "");
 			versionCheckPreference.setSummary("");
 		}
 	}
@@ -80,26 +82,6 @@ public class SettingFragment extends PreferenceFragment {
 		});
 
 		cleanPreference.setTitle("清理缓存, 当前有" + AppSettingManager.getCacheMemory());
-	}
-
-	void logout() {
-		AppSettingManager.onLogout(getActivity(), new IFetcher<Boolean>() {
-
-			@Override
-			public void onFetcherStart() {
-			}
-
-			@Override
-			public void onFetcherSuccess(Boolean t) {
-				if (t) {
-					// 登出成功
-				}
-			}
-
-			@Override
-			public void onFetcherFailed() {
-			}
-		});
 	}
 
 	protected boolean versonCheck() {
@@ -124,13 +106,14 @@ public class SettingFragment extends PreferenceFragment {
 						Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 						versionCheckPreference.setIntent(intent);
 					} else {
-						CommonUtils.showToast(getActivity(), "您已经是最新版啦");
+						// CommonUtils.showToast(getActivity(), "您已经是最新版啦");
+						Crouton.makeText(getActivity(), "您已经是最新版啦", Style.CONFIRM);
 					}
 				}
 
 				@Override
-				public void onFetcherFailed() {
-					CommonUtils.showToast(getActivity(), "检查不到，是否网络不可用呢");
+				public void onFetcherFailed(String error) {
+					Crouton.makeText(getActivity(), "检查不到，是否网络不可用呢", Style.CONFIRM);
 				}
 
 			});
@@ -140,11 +123,11 @@ public class SettingFragment extends PreferenceFragment {
 	}
 
 	protected boolean cleanApp() {
-		if (FileUtils.delFiles(new File(Contants.PATH_SDCARD_ROOT)) && BitmapCacheUtils.destoryCache()) {
-			new BitmapCacheUtils(getActivity(), Contants.PATH_SDCARD_IMAGES);
+//		if (FileUtils.delFiles(new File(Contants.PATH_SDCARD_ROOT))) {
+			ImageLoader.getInstance().clearDiskCache();
+			ImageLoader.getInstance().clearMemoryCache();
 			return true;
-		}
-		return false;
+//		}
 	}
 
 }

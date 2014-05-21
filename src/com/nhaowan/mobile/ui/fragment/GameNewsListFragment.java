@@ -4,8 +4,6 @@ import it.gmariotti.cardslib.library.internal.Card;
 
 import java.util.ArrayList;
 
-import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
-import se.emilsjolander.stickylistheaders.StickyListHeadersListView.OnHeaderClickListener;
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
@@ -25,13 +23,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 
-import com.haha.frame.common.CommonUtils;
-import com.haha.frame.net.AsyncHttpManager;
-import com.haha.frame.net.IFetcher;
-import com.haha.frame.utils.FileSerializable;
-import com.haha.frame.utils.FileUtils;
-import com.haha.frame.widget.AutoGallery;
-import com.haha.frame.widget.FlowIndicator;
+import com.leo.net.AsyncHttpManager;
+import com.leo.net.IFetcher;
+import com.leo.utils.FileSerializable;
+import com.leo.utils.FileUtils;
+import com.leo.widget.AutoGallery;
+import com.leo.widget.FlowIndicator;
 import com.nhaowan.mobile.R;
 import com.nhaowan.mobile.base.BaseFragment;
 import com.nhaowan.mobile.base.bean.AppCategoryBean;
@@ -138,7 +135,7 @@ public class GameNewsListFragment extends BaseFragment implements OnRefreshListe
 					}
 
 					@Override
-					public void onFetcherFailed() {
+					public void onFetcherFailed(String error) {
 					}
 
 				});
@@ -164,7 +161,7 @@ public class GameNewsListFragment extends BaseFragment implements OnRefreshListe
 			}
 
 			@Override
-			public void onFetcherFailed() {
+			public void onFetcherFailed(String error) {
 			}
 		});
 	}

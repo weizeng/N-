@@ -2,11 +2,10 @@ package com.nhaowan.mobile.base.bean;
 
 import java.util.ArrayList;
 
-import com.haha.frame.utils.Element;
-import com.haha.frame.utils.JsonUtils;
-
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.leo.utils.Element;
 
 public class CommentTopBean extends BaseBean implements Parcelable {
 /**

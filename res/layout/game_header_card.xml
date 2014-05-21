@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:paddingLeft="10dp" >
 
-    <com.haha.frame.widget.AutoImageView
+    <ImageView
         android:id="@+id/game_photo_imageview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

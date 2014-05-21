@@ -1,7 +1,0 @@
-package com.nhaowan.mobile.download;
-
-public interface DownloadStatusListener {
-
-	void onUpdate(ResourceInfo resourceInfo,int type);
-
-}

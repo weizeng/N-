@@ -10,14 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.haha.frame.core.BitmapCacheUtils;
-import com.haha.frame.widget.AutoImageView;
-import com.haha.frame.widget.AutoImageView.IThumbViewListener;
 import com.nhaowan.mobile.R;
 import com.nhaowan.mobile.base.bean.TopBean;
+import com.nhaowan.mobile.base.bean.User;
 import com.nhaowan.mobile.base.utils.Contants;
+import com.nhaowan.mobile.base.utils.ImageManager;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class TopGalleryAdapter extends BaseAdapter {
 	private List<TopBean> dataList = new ArrayList<TopBean>();
@@ -50,7 +51,7 @@ public class TopGalleryAdapter extends BaseAdapter {
 		if (convertView == null) {
 			holder = new ViewHolder();
 			convertView = LayoutInflater.from(mContext).inflate(R.layout.gallery_header_item, null);
-			holder.imageView = (AutoImageView) convertView.findViewById(R.id.homepage_gallery_imageview);
+			holder.imageView = (ImageView) convertView.findViewById(R.id.homepage_gallery_imageview);
 			holder.titleView = (TextView) convertView.findViewById(R.id.homepage_gallery_title_view);
 			convertView.setTag(holder);
 		} else {
@@ -67,26 +68,11 @@ public class TopGalleryAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	private void fetchImg(final TopBean sro, final AutoImageView photoView, final boolean isMeasure) {
+	private void fetchImg(final TopBean sro, final ImageView photoView, final boolean isMeasure) {
 		final String url = sro.getThumb();
 		if (!TextUtils.isEmpty(url) && photoView != null) {
 			String path = Contants.PATH_SDCARD_FILES + url.hashCode();
-			Bitmap bitmap = BitmapCacheUtils.getCacheBitmapByFilePath(path, url, 0, 0, 0);
-
-			if (bitmap == null) {
-				photoView.setImageBitmap(null);
-				if (true) {
-					photoView.setUserThumb(url, new IThumbViewListener() {
-
-						@Override
-						public void callback(Bitmap bitmap) {
-							photoView.setImageBitmap(bitmap);
-						}
-					});
-				}
-			} else {
-				photoView.setImageBitmap(bitmap);
-			}
+			ImageLoader.getInstance().displayImage(url, photoView);
 
 		} else {
 			photoView.setImageBitmap(null);
@@ -95,7 +81,7 @@ public class TopGalleryAdapter extends BaseAdapter {
 	}
 
 	final static class ViewHolder {
-		public AutoImageView imageView;
+		public ImageView imageView;
 		public TextView titleView;
 	}
 

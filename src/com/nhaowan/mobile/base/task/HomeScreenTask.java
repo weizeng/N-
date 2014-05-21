@@ -4,17 +4,19 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.view.View;
 
-import com.haha.frame.net.AsyncHttpManager;
-import com.haha.frame.net.IWAsyncHttpResponseHandler;
-import com.haha.frame.utils.SharedPreferencesUtil;
-import com.haha.frame.widget.IDataLoaderListener;
-import com.haha.frame.widget.ImageLoader;
+import com.leo.net.AsyncHttpManager;
+import com.leo.net.IWAsyncHttpResponseHandler;
+import com.leo.utils.PreferenceUtils;
 import com.nhaowan.mobile.base.response.HomeScreenResponse;
-import com.nhaowan.mobile.base.task.IProxyTask.Status;
 import com.nhaowan.mobile.base.utils.Contants;
+import com.nhaowan.mobile.base.utils.ImageManager;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
-public abstract class HomeScreenTask extends AbsProxyTask<HomeScreenResponse> {
+public abstract class HomeScreenTask extends AbsProxyTask<Bitmap> {
 
 	HomeScreenTask(Context mContext) {
 		super(mContext);
@@ -36,13 +38,44 @@ public abstract class HomeScreenTask extends AbsProxyTask<HomeScreenResponse> {
 				new IWAsyncHttpResponseHandler<HomeScreenResponse>(HomeScreenResponse.class) {
 
 					@Override
-					public void onSuccess(HomeScreenResponse t) {
+					public void onSuccess(final HomeScreenResponse t) {
 						if (t != null && t.getRet() == 0) {
-							// loadWelcomeImage(mContext, t.getPicUrl());
 							if (t.getPicUrl() != null) {
-								loadWelcomeImage(mContext, t.getPicUrl());
+								String fileKey = PreferenceUtils.getContactPreference(mContext,
+										Contants.UPDATE_INIT_FILE, Contants.UPDATE_INIT_FILE_KEY);
+								if (t.getPicUrl().equals(fileKey)) {
+									onComplete(null);
+								} else {
+									ImageLoader.getInstance().loadImage(t.getPicUrl(),ImageManager.getDisplayImageOption(),
+											new ImageLoadingListener() {
+
+												@Override
+												public void onLoadingStarted(String imageUri, View view) {
+
+												}
+
+												@Override
+												public void onLoadingFailed(String imageUri, View view,
+														FailReason failReason) {
+												}
+
+												@Override
+												public void onLoadingComplete(String imageUri, View view,
+														Bitmap loadedImage) {
+													PreferenceUtils.saveConfInfo(mContext, Contants.UPDATE_INIT_FILE,
+															Contants.UPDATE_INIT_FILE_KEY, t.getPicUrl() + "");
+													onComplete(loadedImage);
+													
+												}
+
+												@Override
+												public void onLoadingCancelled(String imageUri, View view) {
+												}
+											});
+								}
+							} else {
+								onFailed("没有封面地址");
 							}
-							onComplete(t);
 						}
 					}
 					@Override
@@ -51,31 +84,5 @@ public abstract class HomeScreenTask extends AbsProxyTask<HomeScreenResponse> {
 						onFailed(content);
 					}
 				});
-	}
-
-	private void loadWelcomeImage(final Context mContext, String picUrl) {
-		ImageLoader.getInstance().setOnLoadImageListener(mContext, picUrl, 0, 0, true,
-				new IDataLoaderListener<Bitmap>() {
-
-					@Override
-					public void onPending() {
-					}
-
-					@Override
-					public void onCompleted(String tag, Bitmap obj) {
-						SharedPreferencesUtil.saveConfInfo(mContext, Contants.UPDATE_INIT_FILE,
-								Contants.UPDATE_INIT_FILE_KEY, tag.hashCode() + "");
-						// TODO
-					}
-
-					@Override
-					public void onFailed(int errorCode, String tag) {
-						HomeScreenTask.this.onFailed(tag);
-					}
-
-					@Override
-					public void onProgress(String tag, String progress) {
-					}
-				});
-	}
+		}
 }

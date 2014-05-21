@@ -3,6 +3,7 @@ package com.nhaowan.mobile.ui;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -36,7 +37,8 @@ public class MainActivity extends ActionBarActivity {
 	private BaseFragment mBaseFragment;
 	private LeftMenuAdapter leftMenuAdapter;
 	private ArrayList<InnerMenu> menus;
-
+	private UserSectionView userSectionView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -86,7 +88,7 @@ public class MainActivity extends ActionBarActivity {
 
 	private View addHeaderView() {
 //		View headerView = LayoutInflater.from(this).inflate(R.layout.user_heard_cardview, null, false);
-		UserSectionView userSectionView = new UserSectionView(this);
+		userSectionView = new UserSectionView(this);
 //		CardView cardView = (CardView) headerView.findViewById(R.id.user_heard_cardview);
 //		UserSectionCard userSectionView = new UserSectionCard(this);
 //		cardView.setCard(userSectionView);
@@ -98,6 +100,12 @@ public class MainActivity extends ActionBarActivity {
 //			}
 //		});
 		return userSectionView;
+	}
+	
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		super.onActivityResult(arg0, arg1, arg2);
+		userSectionView.onActivityResult(arg0, arg1, arg2);
 	}
 
 	@Override
@@ -157,10 +165,11 @@ public class MainActivity extends ActionBarActivity {
 	public void openFragment(int position) {
 		if (position == 0) {
 			// 首页
-			openFragment(new GameNewsListFragment()/*GameNewsListFragment()*/);
+			openFragment(new GameCircleFragment()/*GameNewsListFragment()*/);
 		} else if (position == 1) {
 			// 圈子
-			openFragment(new GameCircleFragment()/*GameNewsListFragment()*/);
+//			openFragment(new GameCircleFragment()/*GameNewsListFragment()*/);
+			startActivity(new Intent(this, GameCircleActivity.class));
 		} else if (position == 2) {
 			// 下载
 		} else if (position == 3) {

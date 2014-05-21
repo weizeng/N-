@@ -17,14 +17,16 @@ public class Contants {
 	public final static String PATH_SDCARD_IMAGES = PATH_SDCARD_ROOT + "images/";
 	public final static String PATH_SDCARD_SAVE_IMAGES = PATH_SDCARD_ROOT + "save/";
 
+	// 旧接口
 	public final static String SERVICE_ROOT = "http://www.nhaowan.com";
-
 	public final static String SERVICE_POST_MOBILE = SERVICE_ROOT + "/users/post_apps";
 	public final static String SERVICE_TOP = SERVICE_ROOT + "/app/top";
 	public final static String SERVICE_CATLIST = SERVICE_ROOT + "/app/catlist";
 	public final static String SERVICE_HITS = SERVICE_ROOT + "/app/hits";
 
 	/** 序列化文件 */
+	public static final String SERIAL_CIRCLE_FILE_LIST = PATH_SDCARD_FILES + "circ.iw";
+	public static final String SERIAL_CIRCLE_FILE_DETAIL = PATH_SDCARD_FILES + "circdeta.iw";
 	public static final String SERIAL_CATEGORY_FILE = PATH_SDCARD_FILES + "cate.iw";
 	public static final String SERIAL_TOP_FILE = PATH_SDCARD_FILES + "top.iw";
 	public static final String SERIAL_USER_FILE = PATH_SDCARD_FILES + "user.iw";

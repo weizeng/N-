@@ -1,6 +1,6 @@
 package com.nhaowan.mobile.base.response;
 
-import com.haha.frame.utils.Element;
+import com.leo.utils.Element;
 
 public class HomeScreenResponse {
 	

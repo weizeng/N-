@@ -10,16 +10,14 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.haha.frame.net.AsyncHttpManager;
-import com.haha.frame.net.AsyncHttpResponseHandler;
-import com.haha.frame.utils.DateUtil;
-import com.haha.frame.utils.FileSerializable;
-import com.haha.frame.utils.JsonUtils;
-import com.haha.frame.utils.Log;
-import com.haha.frame.utils.SharedPreferencesUtil;
-import com.nhaowan.mobile.base.bean.AppCategoryBean;
+import com.leo.net.AsyncHttpManager;
+import com.leo.net.AsyncHttpResponseHandler;
+import com.leo.utils.DateUtil;
+import com.leo.utils.FileSerializable;
+import com.leo.utils.JsonUtils;
+import com.leo.utils.Log;
+import com.leo.utils.PreferenceUtils;
 import com.nhaowan.mobile.base.bean.GameCategoryBean;
-import com.nhaowan.mobile.base.task.IProxyTask.Status;
 import com.nhaowan.mobile.base.utils.Contants;
 
 public abstract class GameCategoryTask extends AbsProxyTask<ArrayList<GameCategoryBean>> {
@@ -37,7 +35,7 @@ public abstract class GameCategoryTask extends AbsProxyTask<ArrayList<GameCatego
 	public void onTaskStart() {
 		status = Status.GOING;
 		gcb = getNativeAppCategory();
-		String timeStr = SharedPreferencesUtil.getContactPreference(mContext, Contants.UPDATE_INIT_FILE, ""
+		String timeStr = PreferenceUtils.getContactPreference(mContext, Contants.UPDATE_INIT_FILE, ""
 				+ Contants.UPDATE_INIT_CATEGORY_GAME_KEY);
 		if (!AsyncHttpManager.getInstance().checkConnection(mContext)
 				|| (gcb != null && !TextUtils.isEmpty(timeStr) && !DateUtil.isDataExperid(
@@ -95,7 +93,7 @@ public abstract class GameCategoryTask extends AbsProxyTask<ArrayList<GameCatego
 
 						gcb.add(gg);
 					}
-					SharedPreferencesUtil.saveConfInfo(mContext, Contants.UPDATE_INIT_FILE, ""
+					PreferenceUtils.saveConfInfo(mContext, Contants.UPDATE_INIT_FILE, ""
 							+ Contants.UPDATE_INIT_CATEGORY_GAME_KEY, System.currentTimeMillis() + "");
 					boolean is = FileSerializable.serialize2Local(gcb, Contants.SERIAL_CAT_MAP);
 					onComplete(gcb);

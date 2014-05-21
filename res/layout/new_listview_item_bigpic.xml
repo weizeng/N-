@@ -16,7 +16,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/gamecenter_tuijian" />
 
-        <com.nhaowan.mobile.base.view.UserSectionView
+        <com.nhaowan.mobile.base.view.PosterSectionView
+            android:id="@id/user_section_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </RelativeLayout>
@@ -63,7 +64,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
     <!-- 图片 -->
 
-    <com.haha.frame.widget.AutoImageView
+    <ImageView
         android:id="@+id/common_list_item_image"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -105,5 +106,11 @@
             android:drawableLeft="@drawable/ic_comment_selector"
             android:text="89" />
     </RelativeLayout>
+     <com.nhaowan.mobile.base.view.SwitchContentLayout
+        android:id="@+id/switch_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+         />
 
 </LinearLayout>

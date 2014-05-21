@@ -1,8 +1,9 @@
 package com.nhaowan.mobile.base.bean;
 
+import java.io.File;
 import java.io.Serializable;
 
-import com.haha.frame.utils.FileSerializable;
+import com.leo.utils.FileSerializable;
 import com.nhaowan.mobile.base.utils.Contants;
 
 public class User implements Serializable {
@@ -133,8 +134,14 @@ public class User implements Serializable {
 	}
 
 	public void clear() {
+		new File(Contants.SERIAL_USER_FILE).delete();
 		token = null;
 		user = null;
+	}
+
+	public void refresh() {
+		user = null;
+		getInstance();
 	}
 
 }

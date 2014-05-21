@@ -26,7 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.haha.frame.common.CommonUtils;
+import com.leo.common.CommonUtils;
 import com.nhaowan.mobile.R;
 
 /**

@@ -2,7 +2,7 @@ package com.nhaowan.mobile.base.task;
 
 import android.content.Context;
 
-import com.haha.frame.net.AsyncHttpManager;
+import com.leo.net.AsyncHttpManager;
 
 public abstract class AbsProxyTask<T> implements IProxyTask<Object> {
 	public Context mContext;

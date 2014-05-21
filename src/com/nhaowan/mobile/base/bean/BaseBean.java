@@ -6,11 +6,23 @@ import java.net.URLDecoder;
 
 import android.text.TextUtils;
 
-import com.haha.frame.utils.Element;
+import com.leo.utils.Element;
 
 public class BaseBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Element(value = "username")
+	private String username;
+
+	@Element(value = "url")
+	private String url;
+
+	@Element(value = "user_avatar")
+	private String avatar;
+
+	@Element(value = "comment")
+	private String[] comment;
+
 	@Element(value = "id")
 	protected int id;
 
@@ -34,11 +46,18 @@ public class BaseBean implements Serializable {
 
 	@Element(value = "zan")
 	protected int zanCount;
+	
+	@Element(value = "cover")
+	protected String cover;
+
 	// 是否已经已读
 	protected boolean readed;
 
 	@Element(value = "views")
 	protected int views;
+
+	@Element(value = "icon")
+	protected String icon;
 
 	public BaseBean(int id, String title, long createTime, String thumb, String description, int catid,
 			String subTitle, int zanCount, int views) {
@@ -54,8 +73,52 @@ public class BaseBean implements Serializable {
 		this.views = views;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public String[] getComment() {
+		return comment;
+	}
+
+	public void setComment(String[] comment) {
+		this.comment = comment;
+	}
+
 	public int getViews() {
 		return views;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public void setCreateTime(long createTime) {
+		this.createTime = createTime;
 	}
 
 	public void setViews(int views) {

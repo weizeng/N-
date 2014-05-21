@@ -20,7 +20,7 @@
         android:textColor="#58585B"
         android:textSize="12sp" />
 
-    <com.haha.frame.widget.AutoImageView
+    <ImageView
         android:id="@+id/common_list_item_image"
         android:layout_width="@dimen/card_thumbnail_width"
         android:layout_height="@dimen/card_thumbnail_height"

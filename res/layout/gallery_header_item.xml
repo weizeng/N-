@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     >
 
-    <com.haha.frame.widget.AutoImageView
+    <ImageView
         android:id="@+id/homepage_gallery_imageview"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/head_gallery_item_height"

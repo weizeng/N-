@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.haha.frame.utils.DateUtil;
-import com.haha.frame.utils.Element;
+import com.leo.utils.DateUtil;
+import com.leo.utils.Element;
 
 public class MyCommentBean implements Parcelable, Serializable {
 	/**

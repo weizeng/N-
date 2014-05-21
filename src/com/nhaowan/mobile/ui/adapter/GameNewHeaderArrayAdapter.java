@@ -1,9 +1,7 @@
 package com.nhaowan.mobile.ui.adapter;
 
 import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.Card.OnCardClickListener;
 import it.gmariotti.cardslib.library.view.AbsStickHeaderAdapter;
-import it.gmariotti.cardslib.library.view.CardView;
 
 import java.util.List;
 
@@ -11,7 +9,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.haha.frame.common.CommonUtils;
 import com.nhaowan.mobile.base.view.GameSectionView;
 
 public class GameNewHeaderArrayAdapter extends AbsStickHeaderAdapter {

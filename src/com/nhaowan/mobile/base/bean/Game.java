@@ -3,8 +3,8 @@ package com.nhaowan.mobile.base.bean;
 import java.io.Serializable;
 import java.util.List;
 
-import com.haha.frame.utils.Element;
-import com.haha.frame.utils.ElementList;
+import com.leo.utils.Element;
+import com.leo.utils.ElementList;
 
 public class Game implements Serializable  {
 

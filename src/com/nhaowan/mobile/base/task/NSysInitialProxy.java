@@ -3,11 +3,11 @@ package com.nhaowan.mobile.base.task;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.nhaowan.mobile.base.bean.AppCategoryBean;
 import com.nhaowan.mobile.base.bean.GameCategoryBean;
 import com.nhaowan.mobile.base.log.Log;
-import com.nhaowan.mobile.base.response.HomeScreenResponse;
 import com.nhaowan.mobile.base.response.UpdateAppResponse;
 import com.nhaowan.mobile.base.task.IProxyTask.Status;
 
@@ -35,7 +35,7 @@ public class NSysInitialProxy {
 	private ArrayList<GameCategoryBean> gameCategoryList;
 	// 栏目种类
 	private ArrayList<AppCategoryBean> appCategoryList;
-	private IProxyTask versionTask, homeTask, gameTask, appTask;
+	private IProxyTask versionTask, homeTask, gameTask, appTask, deviceTransferTask;
 	static NSysInitialProxy proxy;
 
 	public static NSysInitialProxy getInstance() {
@@ -53,7 +53,21 @@ public class NSysInitialProxy {
 	 */
 	@SuppressWarnings("rawtypes")
 	public void initSysConf(final Context mContext, final INSConf fetcher) {
+		//开启设备检查任务
+		deviceTransferTask = new DeviceCheckTask(mContext){
 
+			@Override
+			public void onComplete(Boolean t) {
+				Log.d(TAG, "DeviceCheckTask has complete");
+			}
+
+			@Override
+			public void onFailed(String error) {
+				Log.d(TAG, "DeviceCheckTask has failed");
+			}
+		};
+		deviceTransferTask.onTaskStart();
+		
 		versionTask = new VersionUpdateTask(mContext) {
 
 			@Override
@@ -78,7 +92,7 @@ public class NSysInitialProxy {
 		homeTask = new HomeScreenTask(mContext) {
 
 			@Override
-			public void onComplete(HomeScreenResponse t) {
+			public void onComplete(Bitmap t) {
 				Log.d(TAG, "HomeScreenTask has complete");
 				fetcher.onProgress(t);
 				status = Status.COMPLETE;

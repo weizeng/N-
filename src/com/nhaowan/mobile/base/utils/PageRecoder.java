@@ -10,11 +10,11 @@ import org.json.JSONException;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.haha.frame.net.AsyncHttpManager;
-import com.haha.frame.net.AsyncHttpResponseHandler;
-import com.haha.frame.utils.FileSerializable;
-import com.haha.frame.utils.JsonUtils;
-import com.haha.frame.utils.Log;
+import com.leo.net.AsyncHttpManager;
+import com.leo.net.AsyncHttpResponseHandler;
+import com.leo.utils.FileSerializable;
+import com.leo.utils.JsonUtils;
+import com.leo.utils.Log;
 
 public class PageRecoder {
 	private final String TAG = "PageRecoder";
