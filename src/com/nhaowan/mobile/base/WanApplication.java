@@ -9,6 +9,7 @@ import com.baidu.frontia.Frontia;
 import com.baidu.frontia.FrontiaApplication;
 import com.leo.Constants;
 import com.nhaowan.mobile.base.bean.User;
+import com.nhaowan.mobile.base.utils.ImageManager;
 import com.nhaowan.mobile.base.utils.bd.ThirdPlatform;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -44,6 +45,7 @@ public class WanApplication extends Application {
 				.diskCacheFileNameGenerator(new Md5FileNameGenerator())
 				.tasksProcessingOrder(QueueProcessingType.LIFO)
 				.writeDebugLogs() // Remove for release  app
+				.defaultDisplayImageOptions(ImageManager.getDisplayImageOption())
 				.build();
 		// Initialize ImageLoader with configuration.
 		ImageLoader.getInstance().init(config);

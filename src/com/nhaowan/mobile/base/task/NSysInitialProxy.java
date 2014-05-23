@@ -3,13 +3,16 @@ package com.nhaowan.mobile.base.task;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.os.Handler;
 
+import com.leo.utils.FileSerializable;
 import com.nhaowan.mobile.base.bean.AppCategoryBean;
+import com.nhaowan.mobile.base.bean.CircleBean;
 import com.nhaowan.mobile.base.bean.GameCategoryBean;
 import com.nhaowan.mobile.base.log.Log;
 import com.nhaowan.mobile.base.response.UpdateAppResponse;
 import com.nhaowan.mobile.base.task.IProxyTask.Status;
+import com.nhaowan.mobile.base.utils.Contants;
 
 /**
  * 获取系统配置的代理类
@@ -30,7 +33,9 @@ public class NSysInitialProxy {
 	}
 
 	private static String TAG = NSysInitialProxy.class.getSimpleName();
-
+	private INSConf fetcher;
+	private final int TIMEOUT = 4000;
+	
 	// 游戏种类
 	private ArrayList<GameCategoryBean> gameCategoryList;
 	// 栏目种类
@@ -53,8 +58,10 @@ public class NSysInitialProxy {
 	 */
 	@SuppressWarnings("rawtypes")
 	public void initSysConf(final Context mContext, final INSConf fetcher) {
-		//开启设备检查任务
-		deviceTransferTask = new DeviceCheckTask(mContext){
+		this.fetcher = fetcher;
+		isTimeOut = false;
+		// 开启设备检查任务
+		deviceTransferTask = new DeviceCheckTask(mContext) {
 
 			@Override
 			public void onComplete(Boolean t) {
@@ -67,7 +74,7 @@ public class NSysInitialProxy {
 			}
 		};
 		deviceTransferTask.onTaskStart();
-		
+
 		versionTask = new VersionUpdateTask(mContext) {
 
 			@Override
@@ -92,7 +99,7 @@ public class NSysInitialProxy {
 		homeTask = new HomeScreenTask(mContext) {
 
 			@Override
-			public void onComplete(Bitmap t) {
+			public void onComplete(String t) {
 				Log.d(TAG, "HomeScreenTask has complete");
 				fetcher.onProgress(t);
 				status = Status.COMPLETE;
@@ -128,7 +135,7 @@ public class NSysInitialProxy {
 			public void onComplete(ArrayList<GameCategoryBean> t) {
 				status = Status.COMPLETE;
 				Log.d(TAG, "GameCategoryTask has complete");
-				if(t != null) {
+				if (t != null) {
 					gameCategoryList = ((ArrayList<GameCategoryBean>) t.clone());
 				}
 				// fetcher.onProgress(gameCategoryList);
@@ -164,22 +171,43 @@ public class NSysInitialProxy {
 
 		};
 		appTask.onTaskStart();
+
+		handler.sendEmptyMessageDelayed(1, TIMEOUT);
+	}
+
+	boolean isTimeOut = false;
+	boolean isAllTaskDone = false;
+	private Handler handler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			if (msg.what == 1) {
+				isTimeOut = true;
+				if (isAllTaskDone) {
+					Log.d(TAG, "Handler all task has done , time out ");
+					fetcher.onCompleteAll();
+				}
+			}
+		};
+	};
+
+	private void checkTimeOutAndDone(INSConf fetcher) {
+		isAllTaskDone = true;
+		if (isTimeOut && fetcher != null) {
+			Log.d(TAG, "checkTimeOutAndDone  all task has done , time out ");
+			handler.removeMessages(1);
+			fetcher.onCompleteAll();
+		}
 	}
 
 	void checkTaskAllComplete(INSConf fetcher) {
-		if(homeTask == null || versionTask == null || appTask == null || gameTask == null) {
+		if (homeTask == null || versionTask == null || appTask == null || gameTask == null) {
 			return;
 		}
 		if (versionTask.getStatus() == Status.COMPLETE && homeTask.getStatus() == Status.COMPLETE
 				&& gameTask.getStatus() == Status.COMPLETE && appTask.getStatus() == Status.COMPLETE) {
-			if (fetcher != null) {
-				fetcher.onCompleteAll();
-			}
+			checkTimeOutAndDone(fetcher);
 		} else if (versionTask.getStatus() != Status.GOING && homeTask.getStatus() != Status.GOING
 				&& gameTask.getStatus() != Status.GOING && appTask.getStatus() != Status.GOING) {
-			if (fetcher != null) {
-				fetcher.onCompleteAll();
-			}
+			checkTimeOutAndDone(fetcher);
 		}
 	}
 
@@ -189,6 +217,7 @@ public class NSysInitialProxy {
 	}
 
 	public ArrayList<AppCategoryBean> getAppCategoryList() {
+		
 		return appCategoryList == null ? ((AppCategoryTask) appTask).getNativeAppCategory() : appCategoryList;
 	}
 
@@ -202,16 +231,16 @@ public class NSysInitialProxy {
 		}
 		return names;
 	}
-	
+
 	public ArrayList<String> getMyCirclesNames() {
-	 
+
 		ArrayList<String> names = new ArrayList<String>();
 		names.add("所有");
 		names.add("2048");
 		names.add("愤怒的小鸟");
-//		for (AppCategoryBean bean : getAppCategoryList()) {
-//			names.add(bean.getCatname());
-//		}
+		// for (AppCategoryBean bean : getAppCategoryList()) {
+		// names.add(bean.getCatname());
+		// }
 		return names;
 	}
 
@@ -223,4 +252,16 @@ public class NSysInitialProxy {
 		}
 		return "未知";
 	}
+
+	public ArrayList<CircleBean> getCircleBeans() {
+		ArrayList<CircleBean> tmp = new ArrayList<CircleBean>();
+		try {
+			tmp = (ArrayList<CircleBean>) FileSerializable.readFromLocal(Contants.SERIAL_CIRCLE_FILE_LIST);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return tmp;
+	}
+
 }

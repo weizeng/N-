@@ -1,7 +1,7 @@
 package com.nhaowan.mobile.ui.fragment;
 
-import java.io.File;
-
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.net.Uri;
@@ -17,10 +17,8 @@ import android.view.ViewGroup;
 
 import com.leo.net.IFetcher;
 import com.leo.utils.DeviceUtils;
-import com.leo.utils.FileUtils;
 import com.nhaowan.mobile.R;
 import com.nhaowan.mobile.base.response.UpdateAppResponse;
-import com.nhaowan.mobile.base.utils.Contants;
 import com.nhaowan.mobile.ui.logic.AppSettingManager;
 import com.nhaowan.mobile.ui.preference.UserPreference;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -32,10 +30,16 @@ public class SettingFragment extends PreferenceFragment {
 	private final String TAG = SettingFragment.class.getSimpleName();
 	private UserPreference userPreference;
 	private Preference versionCheckPreference;
-
+	private Context mContext;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_setting_layout, container, false);
+	}
+	
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		this.mContext = activity;
 	}
 
 	@Override
@@ -71,13 +75,15 @@ public class SettingFragment extends PreferenceFragment {
 	}
 
 	private void checkCache() {
-		Preference cleanPreference = findPreference("setting_key_clean_preference");
+		final Preference cleanPreference = findPreference("setting_key_clean_preference");
 		cleanPreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				// clean my sys
-				return cleanApp();
+				cleanApp();
+				cleanPreference.setTitle("清理缓存, 当前有" + AppSettingManager.getCacheMemory());
+				return true;
 			}
 		});
 
@@ -107,13 +113,13 @@ public class SettingFragment extends PreferenceFragment {
 						versionCheckPreference.setIntent(intent);
 					} else {
 						// CommonUtils.showToast(getActivity(), "您已经是最新版啦");
-						Crouton.makeText(getActivity(), "您已经是最新版啦", Style.CONFIRM);
+						Crouton.makeText((Activity) mContext, "您已经是最新版啦", Style.CONFIRM);
 					}
 				}
 
 				@Override
 				public void onFetcherFailed(String error) {
-					Crouton.makeText(getActivity(), "检查不到，是否网络不可用呢", Style.CONFIRM);
+					Crouton.makeText((Activity) mContext, "检查不到，是否网络不可用呢", Style.CONFIRM);
 				}
 
 			});

@@ -10,9 +10,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
 import com.baidu.mobstat.StatService;
+import com.leo.utils.FileUtils;
 import com.leo.utils.PreferenceUtils;
 import com.nhaowan.mobile.R;
 import com.nhaowan.mobile.base.response.UpdateAppResponse;
@@ -20,7 +20,7 @@ import com.nhaowan.mobile.base.task.NSysInitialProxy;
 import com.nhaowan.mobile.base.task.NSysInitialProxy.INSConf;
 import com.nhaowan.mobile.base.utils.Contants;
 import com.nhaowan.mobile.base.utils.ImageManager;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nhaowan.mobile.base.view.KenBurnsView;
 
 public class WelcomeActivity extends Activity {
 	private String TAG = WelcomeActivity.class.getSimpleName();
@@ -36,13 +36,20 @@ public class WelcomeActivity extends Activity {
 	}
 
 	private void init() {
-		final ImageView loadingView = (ImageView) findViewById(R.id.init_imageview);
+		final String welcome = Contants.PATH_SDCARD_SAVE_IMAGES+"welcome.jpg";
+		if(!FileUtils.checkFileExists(welcome)){
+			boolean rs = FileUtils.copyAssets(this,"images", Contants.PATH_SDCARD_SAVE_IMAGES);
+		}
+		
+		final KenBurnsView loadingView = (KenBurnsView) findViewById(R.id.init_imageview);
 		// 得到hashcode值
 		String tag = PreferenceUtils.getContactPreference(this, Contants.UPDATE_INIT_FILE,
 				Contants.UPDATE_INIT_FILE_KEY);
 
 		if (!TextUtils.isEmpty(tag)) {
-			ImageLoader.getInstance().displayImage(tag, loadingView, ImageManager.getDisplayImageOption());
+			 loadingView.setBitmaps("file://"+welcome, tag);
+		}else {
+			loadingView.setBitmaps("file://"+welcome);
 		}
 
 		NSysInitialProxy.getInstance().initSysConf(this, new INSConf() {
@@ -55,8 +62,8 @@ public class WelcomeActivity extends Activity {
 						if (!TextUtils.isEmpty(response.getAppurl())) {
 							createNotifacation(response);
 						}
-					} else if (t instanceof Bitmap) {
-						loadingView.setImageBitmap((Bitmap) t);
+					} else if (t instanceof String) {
+						loadingView.setBitmaps((String)t, "file://"+welcome);
 					}
 				}
 			}

@@ -2,12 +2,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ImageView
+    <com.nhaowan.mobile.base.view.KenBurnsView
         android:id="@+id/init_imageview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_launcher" />
+         />
 
 
 

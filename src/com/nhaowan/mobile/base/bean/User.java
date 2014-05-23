@@ -13,7 +13,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String city = "外太空";
-	private String name = "玩家追梦";
+	private String name = "布雷泽";
 	private String headUrl;
 	private String province;
 	private String birthday;

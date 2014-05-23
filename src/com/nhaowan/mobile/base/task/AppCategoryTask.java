@@ -82,7 +82,7 @@ public abstract class AppCategoryTask extends AbsProxyTask<ArrayList<AppCategory
 				new IWAsyncHttpResponseHandler<AppCategoryResponse>(AppCategoryResponse.class) {
 
 					@Override
-					public void onSuccess(AppCategoryResponse t) {
+					public void onTaskSuccess(AppCategoryResponse t) {
 						if (t != null && t.getRet() == 0) {
 							cbs.clear();
 							cbs.addAll(t.getList());

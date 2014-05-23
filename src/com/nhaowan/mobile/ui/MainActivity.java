@@ -13,21 +13,19 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.nhaowan.mobile.R;
 import com.nhaowan.mobile.base.BaseFragment;
 import com.nhaowan.mobile.base.bean.InnerMenu;
-import com.nhaowan.mobile.base.bean.User;
 import com.nhaowan.mobile.base.view.UserSectionView;
 import com.nhaowan.mobile.ui.adapter.LeftMenuAdapter;
-import com.nhaowan.mobile.ui.fragment.GameCircleFragment;
-import com.nhaowan.mobile.ui.fragment.GameNewsListFragment;
-import com.nhaowan.mobile.ui.fragment.MyCricleConfFragment;
+import com.nhaowan.mobile.ui.fragment.GameAllCircleListFragment;
 import com.nhaowan.mobile.ui.fragment.SettingFragment;
 
 public class MainActivity extends ActionBarActivity {
@@ -71,10 +69,10 @@ public class MainActivity extends ActionBarActivity {
 		mDrawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 		mDrawerList = (ListView) findViewById(R.id.drawer_extras);
 		menus = new ArrayList<InnerMenu>();
-		menus.add(new InnerMenu(0, getString(R.string.page_indexpage), true));
-		menus.add(new InnerMenu(1, getString(R.string.page_circle), false));
-		menus.add(new InnerMenu(2, getString(R.string.page_download), false));
-		menus.add(new InnerMenu(3, getString(R.string.page_setting), false));
+		menus.add(new InnerMenu(0, getString(R.string.page_circle), true));
+//		menus.add(new InnerMenu(0, getString(R.string.page_indexpage), true));
+//		menus.add(new InnerMenu(1, getString(R.string.page_download), false));
+		menus.add(new InnerMenu(1, getString(R.string.page_setting), false));
 		leftMenuAdapter = new LeftMenuAdapter(this, menus);
 
 		// addHeader
@@ -87,18 +85,10 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	private View addHeaderView() {
-//		View headerView = LayoutInflater.from(this).inflate(R.layout.user_heard_cardview, null, false);
 		userSectionView = new UserSectionView(this);
-//		CardView cardView = (CardView) headerView.findViewById(R.id.user_heard_cardview);
-//		UserSectionCard userSectionView = new UserSectionCard(this);
-//		cardView.setCard(userSectionView);
-//		userSectionView.setOnAuthinizeListener(new IUserLogin() {
-//
-//			@Override
-//			public void onStartLogin(PLATFORM form) {
-//
-//			}
-//		});
+		AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, 700);
+		
+		userSectionView.setLayoutParams(layoutParams);
 		return userSectionView;
 	}
 	
@@ -119,11 +109,11 @@ public class MainActivity extends ActionBarActivity {
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		} else if (item.getItemId() == R.id.menu_mycricle) {
-			if(!TextUtils.isEmpty(User.getInstance().getId())) {
-				openFragment(new MyCricleConfFragment());
-			} else {
-				openFragment(new MyCricleConfFragment());
-			}
+//			if(!TextUtils.isEmpty(User.getInstance().getId())) {
+//				openFragment(new MyCricleConfFragment());
+//			} else {
+//				openFragment(new MyCricleConfFragment());
+//			}
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -153,29 +143,27 @@ public class MainActivity extends ActionBarActivity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			InnerMenu menu = (InnerMenu) mDrawerList.getItemAtPosition(position);
+			if (menu != null) {
+				getActionBar().setTitle(menu.getTitle());
+				openFragment(menu.getId());
+				mDrawer.closeDrawer(mDrawerList);
 
-			getActionBar().setTitle(menu.getTitle());
-			openFragment(menu.getId());
-			mDrawer.closeDrawer(mDrawerList);
-
-			checkSelected(menu.getId());
+				checkSelected(menu.getId());
+			}
 		}
 	}
 
 	public void openFragment(int position) {
 		if (position == 0) {
-			// 首页
-			openFragment(new GameCircleFragment()/*GameNewsListFragment()*/);
-		} else if (position == 1) {
 			// 圈子
+			openFragment(new GameAllCircleListFragment()/*GameNewsListFragment()*/);
+		} else if (position == 1) {
 //			openFragment(new GameCircleFragment()/*GameNewsListFragment()*/);
-			startActivity(new Intent(this, GameCircleActivity.class));
-		} else if (position == 2) {
-			// 下载
-		} else if (position == 3) {
+//			startActivity(new Intent(this, GameCircleActivity.class));
 			// 设置
 			openFragment(new SettingFragment());
-		}
+		} else if (position == 2) {
+		} 
 	}
 
 	public void checkSelected(int id) {

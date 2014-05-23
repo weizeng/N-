@@ -20,5 +20,6 @@
     <dimen name="circle_float_img_bottom_tab_height">30dp</dimen>
     
     <dimen name="poster_head_width">60dp</dimen>
+    <dimen name="user_head_small_width">55dp</dimen>
 
 </resources>

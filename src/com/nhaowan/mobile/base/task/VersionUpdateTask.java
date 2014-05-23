@@ -36,10 +36,9 @@ public abstract class VersionUpdateTask extends AbsProxyTask<UpdateAppResponse> 
 				new IWAsyncHttpResponseHandler<UpdateAppResponse>(UpdateAppResponse.class) {
 
 					@Override
-					public void onSuccess(UpdateAppResponse t) {
+					public void onTaskSuccess(UpdateAppResponse t) {
 						if (t != null && t.getRet() == 0) {
 							onComplete(t);
-							
 						}
 					}
 					

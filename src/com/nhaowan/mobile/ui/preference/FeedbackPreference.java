@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Context;
 import android.preference.Preference;
 import android.text.TextUtils;
@@ -22,6 +23,9 @@ import com.leo.net.AsyncHttpManager;
 import com.leo.net.AsyncHttpResponseHandler;
 import com.nhaowan.mobile.R;
 import com.nhaowan.mobile.base.utils.Contants;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class FeedbackPreference extends Preference {
 	private EditText emailEditText;
@@ -85,7 +89,8 @@ public class FeedbackPreference extends Preference {
 											JSONObject jsonObject = new JSONObject(content);
 											if (0 == jsonObject.getInt("ret")) {
 												CommonUtils
-														.showToast(mContext, "反馈成功啦，感谢您的意见，N好玩，绝对好玩的游戏推荐！");
+														.showToast(mContext, "反馈成功啦，感谢您的意见，N+ 一切为了玩家交流的圈子！");
+//												Crouton.showText((Activity) mContext, "反馈成功啦，感谢您的意见，N+ 一切为了玩家交流的圈子！", Style.CONFIRM);
 											}
 										}
 									} catch (JSONException e) {
@@ -102,7 +107,7 @@ public class FeedbackPreference extends Preference {
 	}
 	
 	private void enableWidgets(boolean value) {
-		progressBar.setVisibility(value? View.VISIBLE : View.INVISIBLE);
+		progressBar.setVisibility(value?  View.INVISIBLE: View.VISIBLE);
 		emailEditText.setEnabled(value);
 		mobileEditText.setEnabled(value);
 		submitImageButton.setEnabled(value);

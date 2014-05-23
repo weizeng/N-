@@ -16,7 +16,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
-public abstract class HomeScreenTask extends AbsProxyTask<Bitmap> {
+public abstract class HomeScreenTask extends AbsProxyTask<String> {
 
 	HomeScreenTask(Context mContext) {
 		super(mContext);
@@ -38,7 +38,7 @@ public abstract class HomeScreenTask extends AbsProxyTask<Bitmap> {
 				new IWAsyncHttpResponseHandler<HomeScreenResponse>(HomeScreenResponse.class) {
 
 					@Override
-					public void onSuccess(final HomeScreenResponse t) {
+					public void onTaskSuccess(final HomeScreenResponse t) {
 						if (t != null && t.getRet() == 0) {
 							if (t.getPicUrl() != null) {
 								String fileKey = PreferenceUtils.getContactPreference(mContext,
@@ -64,7 +64,7 @@ public abstract class HomeScreenTask extends AbsProxyTask<Bitmap> {
 														Bitmap loadedImage) {
 													PreferenceUtils.saveConfInfo(mContext, Contants.UPDATE_INIT_FILE,
 															Contants.UPDATE_INIT_FILE_KEY, t.getPicUrl() + "");
-													onComplete(loadedImage);
+													onComplete(t.getPicUrl());
 													
 												}
 
